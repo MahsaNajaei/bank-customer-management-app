@@ -3,10 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
-    <servlet>
-        <servlet-name>StaticContentHandlerServlet</servlet-name>
-        <servlet-class>ir.dotin.bank.cms.business.services.StaticContentHandlerServlet</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>registrationServlet</servlet-name>
         <servlet-class>ir.dotin.bank.cms.business.services.RegistrationServlet</servlet-class>
@@ -24,11 +21,6 @@
         <servlet-class>ir.dotin.bank.cms.business.services.DeleteServlet</servlet-class>
     </servlet>
 
-    <servlet-mapping>
-        <servlet-name>StaticContentHandlerServlet</servlet-name>
-        <url-pattern>/legal-customer</url-pattern>
-        <url-pattern>/natural-customer</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>registrationServlet</servlet-name>
         <url-pattern>/legal-register</url-pattern>
