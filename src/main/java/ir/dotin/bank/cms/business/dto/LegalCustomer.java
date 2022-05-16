@@ -36,9 +36,4 @@ public class LegalCustomer extends BankCustomer {
         this.economicId = economicId;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + ",registrationDate=" + registrationDate + ",companyName=" + companyName
-                + ",economicId=" + economicId;
-    }
 }

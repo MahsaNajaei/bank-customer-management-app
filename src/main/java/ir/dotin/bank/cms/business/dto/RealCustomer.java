@@ -2,14 +2,14 @@ package ir.dotin.bank.cms.business.dto;
 
 import java.sql.Date;
 
-public class NaturalCustomer extends BankCustomer {
+public class RealCustomer extends BankCustomer {
     private String name;
     private String surname;
     private String fathersName;
     private Date birthDate;
     private String nationalCode;
 
-    public NaturalCustomer(long customerId) {
+    public RealCustomer(long customerId) {
         super(customerId);
     }
 
@@ -53,9 +53,4 @@ public class NaturalCustomer extends BankCustomer {
         this.nationalCode = nationalCode;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + ",name" + name + ",surname=" + surname + ",fathersName=" +
-                fathersName + ",birthDate=" + birthDate + ",nationalCode=" + nationalCode;
-    }
 }

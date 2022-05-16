@@ -1,25 +1,22 @@
-<form class="form_wrapper" method="post" id="legal_registration_form" accept-charset="UTF-8">
-
-    <label> نام شرکت <input type="text" name="company_name" required oninvalid="showNullAlert(this)"> </label>
+<form class="form_wrapper" method="post" id="legal_registration_form" accept-charset="UTF-8" oninvalid="this.preventDefault();">
+    <label> نام شرکت <input type="text" name="company-name" maxlength="30" required oninvalid="showNullAlert(this)"
+                            oninput="this.setCustomValidity('')"> </label>
 
     <label>
         تاریخ ثبت
         <div class="date-wrapper">
-            <input type="text" name="registration_day" placeholder="روز" pattern="[1-9]|[1-2][0-9]|3[0-1]" required
-                   oninvalid="showDayInvalidAlert(this)" onchange="this.setCustomValidity('')">
-            <input type="text" name="registration_month" placeholder="ماه" required pattern="((0)?[1-9]|1[0-2])"
-                   oninvalid="showMonthInvalidAlert(this)" onchange="this.setCustomValidity('') "
+            <input type="text" name="registration-day" placeholder="روز" maxlength="2" pattern="[1-9]|[1-2][0-9]|3[0-1]" required
+                   oninvalid="showDayInvalidAlert(this)" oninput="this.setCustomValidity('')">
+            <input type="text" name="registration-month" placeholder="ماه" maxlength="2" pattern="((0)?[1-9]|1[0-2])" required
+                   oninvalid="showMonthInvalidAlert(this)" oninput="this.setCustomValidity('') "
                    style="border-radius: 0;">
-            <input type="text" name="registration_year" placeholder="سال" required pattern="[1-9][0-9]{3}"
-                   oninvalid="showYearInvalidAlert(this)" onchange="this.setCustomValidity('')">
+            <input type="text" name="registration-year" placeholder="سال" maxlength="4" pattern="1[0-3][0-9]{2}|140[0-1]" required
+                   oninvalid="showYearInvalidAlert(this)" oninput="this.setCustomValidity('')">
         </div>
     </label>
 
-    <label> کد اقتصادی <input type="text" name="economic_id" pattern="[0-9]{12}" required
-                              oninvalid="showEconomicCodeAlert(this)"> </label>
+    <label> کد اقتصادی <input type="text" name="economic-id" maxlength="12" pattern="[0-9]{12}" required
+                              oninvalid="showEconomicCodeAlert(this)" oninput="this.setCustomValidity('')"> </label>
+
     <input type="submit" class="submit-button" id="registration_submit" value="ثبت">
 </form>
-
-<script>
-     postLegalDataOnSubmit();
-</script>

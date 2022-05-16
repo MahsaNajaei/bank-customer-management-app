@@ -22,11 +22,15 @@
     <label for="search_tab"> جستجو </label>
 
     <div id="registration_form_wrapper" class="form_content">
-        <script> $("#registration_form_wrapper").load("natural-person-form.html")</script>
+        <script>
+            $("#registration_form_wrapper").load("real-person-form.html", function () {
+                postRealRegistrationRequestOnSubmit();
+            })
+        </script>
     </div>
 
     <div id="search_form_wrapper" class="form_content">
-        <form method="get" action="../natural-search">
+        <form method="get" action="../real-search">
 
             <content type="text"> جستجو بر اساس</content>
 

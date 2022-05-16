@@ -19,7 +19,7 @@ public class DeleteServlet extends HttpServlet {
         new BankCustomerDAOFactory().getBankCustomerDAO(customerType).deleteCustomer(customerId);
         if (CustomerType.LEGAL.equals(customerType))
             request.getRequestDispatcher("legal-search").forward(request, response);
-        else if (CustomerType.NATURAL.equals(customerType))
-            request.getRequestDispatcher("natural-search").forward(request, response);
+        else if (CustomerType.REAL.equals(customerType))
+            request.getRequestDispatcher("real-search").forward(request, response);
     }
 }

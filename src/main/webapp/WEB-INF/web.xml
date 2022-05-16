@@ -24,12 +24,12 @@
     <servlet-mapping>
         <servlet-name>registrationServlet</servlet-name>
         <url-pattern>/legal-register</url-pattern>
-        <url-pattern>/natural-register</url-pattern>
+        <url-pattern>/real-register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>searchServlet</servlet-name>
         <url-pattern>/legal-search</url-pattern>
-        <url-pattern>/natural-search</url-pattern>
+        <url-pattern>/real-search</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>deleteServlet</servlet-name>

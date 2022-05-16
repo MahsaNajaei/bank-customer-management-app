@@ -23,7 +23,11 @@
     <label for="search_tab"> جستجو </label>
 
     <div id="registration_form_wrapper" class="form_content">
-        <script> $("#registration_form_wrapper").load("legal-person-form.html")</script>
+        <script>
+            $("#registration_form_wrapper").load("legal-person-form.html", function () {
+                postLegalRegistrationRequestOnSubmit();
+            });
+        </script>
     </div>
 
     <div id="search_form_wrapper" class="form_content">

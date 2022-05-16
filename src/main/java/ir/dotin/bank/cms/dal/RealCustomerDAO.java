@@ -2,7 +2,7 @@ package ir.dotin.bank.cms.dal;
 
 import ir.dotin.bank.cms.business.dto.BankCustomer;
 import ir.dotin.bank.cms.business.dto.CustomerType;
-import ir.dotin.bank.cms.business.dto.NaturalCustomer;
+import ir.dotin.bank.cms.business.dto.RealCustomer;
 import ir.dotin.bank.cms.dal.helpers.CustomerRawDataExtractor;
 
 import java.sql.*;
@@ -11,10 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NaturalCustomerDAO implements BankCustomerDao {
+public class RealCustomerDAO implements BankCustomerDao {
     private Statement queryStatement;
 
-    public NaturalCustomerDAO() {
+    public RealCustomerDAO() {
         connect();
     }
 
@@ -33,15 +33,15 @@ public class NaturalCustomerDAO implements BankCustomerDao {
 
     @Override
     public void addCustomer(BankCustomer bankCustomer) {
-        NaturalCustomer naturalCustomer = (NaturalCustomer) bankCustomer;
+        RealCustomer realCustomer = (RealCustomer) bankCustomer;
         try {
-            queryStatement.execute("INSERT INTO natural_Customers values ( " +
-                    naturalCustomer.getCustomerId() + ", '" +
-                    naturalCustomer.getName() + "', '" +
-                    naturalCustomer.getSurname() + "', '" +
-                    naturalCustomer.getFathersName() + "', '" +
-                    naturalCustomer.getBirthDate() + "', " +
-                    naturalCustomer.getNationalCode() + ")");
+            queryStatement.execute("INSERT INTO real_Customers values ( " +
+                    realCustomer.getCustomerId() + ", '" +
+                    realCustomer.getName() + "', '" +
+                    realCustomer.getSurname() + "', '" +
+                    realCustomer.getFathersName() + "', '" +
+                    realCustomer.getBirthDate() + "', " +
+                    realCustomer.getNationalCode() + ")");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class NaturalCustomerDAO implements BankCustomerDao {
     public void updateCustomer(BankCustomer bankCustomer) {
         String assignmentList = CustomerRawDataExtractor.extractAssignmentList(bankCustomer);
         try {
-            queryStatement.execute("UPDATE natural_customers SET " + assignmentList + "WHERE customerId = " + bankCustomer.getCustomerId());
+            queryStatement.execute("UPDATE real_customers SET " + assignmentList + "WHERE customerId = " + bankCustomer.getCustomerId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,7 +61,7 @@ public class NaturalCustomerDAO implements BankCustomerDao {
     @Override
     public void deleteCustomer(long customerId) {
         try {
-            queryStatement.execute("DELETE FROM natural_customers where customerId = '" + customerId + "';");
+            queryStatement.execute("DELETE FROM real_customers where customerId = '" + customerId + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,26 +69,26 @@ public class NaturalCustomerDAO implements BankCustomerDao {
 
     @Override
     public BankCustomer retrieveCustomerById(long customerId) {
-        NaturalCustomer naturalCustomer = new NaturalCustomer(customerId);
-        naturalCustomer.setCustomerType(CustomerType.NATURAL);
+        RealCustomer realCustomer = new RealCustomer(customerId);
+        realCustomer.setCustomerType(CustomerType.REAL);
         try {
-            ResultSet resultSet = queryStatement.executeQuery("SELECT * FROM natural_customers where customerId = '" + customerId + "'");
+            ResultSet resultSet = queryStatement.executeQuery("SELECT * FROM real_customers where customerId = '" + customerId + "'");
             resultSet.next();
-            naturalCustomer.setName(resultSet.getString("name"));
-            naturalCustomer.setSurname(resultSet.getString("surname"));
-            naturalCustomer.setFathersName(resultSet.getString("fathersName"));
-            naturalCustomer.setNationalCode(resultSet.getString("nationalCode"));
-            naturalCustomer.setBirthDate(resultSet.getDate("birthDate"));
+            realCustomer.setName(resultSet.getString("name"));
+            realCustomer.setSurname(resultSet.getString("surname"));
+            realCustomer.setFathersName(resultSet.getString("fathersName"));
+            realCustomer.setNationalCode(resultSet.getString("nationalCode"));
+            realCustomer.setBirthDate(resultSet.getDate("birthDate"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return naturalCustomer;
+        return realCustomer;
     }
 
     @Override
     public boolean customerIdExists(long customerId) throws SQLException {
-        ResultSet resultSet = queryStatement.executeQuery("SELECT * from natural_customers where customerId = " + customerId);
+        ResultSet resultSet = queryStatement.executeQuery("SELECT * from real_customers where customerId = " + customerId);
         return resultSet.next();
     }
 
@@ -96,7 +96,7 @@ public class NaturalCustomerDAO implements BankCustomerDao {
     public List searchDBFor(String searchKey, String searchValue) {
         List<Map<String, String>> customers = new ArrayList();
         try {
-            ResultSet resultSet = queryStatement.executeQuery("SELECT * from natural_customers where " + searchKey + "= \"" + searchValue + "\"");
+            ResultSet resultSet = queryStatement.executeQuery("SELECT * from real_customers where " + searchKey + " LIKE '" + searchValue + "%'");
 
             while (resultSet.next()) {
                 Map<String, String> customerInfo = new HashMap();
@@ -115,7 +115,7 @@ public class NaturalCustomerDAO implements BankCustomerDao {
     }
 
     public boolean nationalCodeExists(String nationalCode) throws SQLException {
-        ResultSet resultSet = queryStatement.executeQuery("SELECT * from natural_customers where nationalCode = " + nationalCode);
+        ResultSet resultSet = queryStatement.executeQuery("SELECT * from real_customers where nationalCode = " + nationalCode);
         return resultSet.next();
     }
 }

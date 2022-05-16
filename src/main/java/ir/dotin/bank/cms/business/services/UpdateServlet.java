@@ -24,8 +24,8 @@ public class UpdateServlet extends HttpServlet {
         CustomerType customerType = CustomerType.valueOf(request.getParameter("customer-type").toUpperCase());
         BankCustomer bankCustomer = new BankCustomerDAOFactory().getBankCustomerDAO(customerType).retrieveCustomerById(customerId);
         request.setAttribute("customer", bankCustomer);
-        if (CustomerType.NATURAL == customerType)
-            request.getRequestDispatcher("/presentation/naturalEditPage.jsp").include(request, response);
+        if (CustomerType.REAL == customerType)
+            request.getRequestDispatcher("/presentation/realEditPage.jsp").include(request, response);
         else if (CustomerType.LEGAL == customerType)
             request.getRequestDispatcher("/presentation/legalEditPage.jsp").include(request, response);
     }
@@ -38,8 +38,8 @@ public class UpdateServlet extends HttpServlet {
         BankCustomer updatedCustomer = new BankCustomerFactory().getBankCustomer(customerType, customerId);
         if (CustomerType.LEGAL == customerType)
             FormDataToDTOConvertor.setLegalCustomerAttributes(request, (LegalCustomer) updatedCustomer);
-        else if (CustomerType.NATURAL == customerType)
-            FormDataToDTOConvertor.setNaturalCustomerAttributes(request, (NaturalCustomer) updatedCustomer);
+        else if (CustomerType.REAL == customerType)
+            FormDataToDTOConvertor.setRealCustomerAttributes(request, (RealCustomer) updatedCustomer);
         try {
             new CustomerValidator().validateCustomer(updatedCustomer);
             new BankCustomerDAOFactory().getBankCustomerDAO(customerType).updateCustomer(updatedCustomer);

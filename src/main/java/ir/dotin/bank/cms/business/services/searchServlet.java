@@ -1,7 +1,7 @@
 package ir.dotin.bank.cms.business.services;
 
 import ir.dotin.bank.cms.dal.LegalCustomerDAO;
-import ir.dotin.bank.cms.dal.NaturalCustomerDAO;
+import ir.dotin.bank.cms.dal.RealCustomerDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,9 +25,9 @@ public class searchServlet extends HttpServlet {
 
             bankCustomers = new LegalCustomerDAO().searchDBFor(searchKey, searchValue);
             request.setAttribute("customer-type", "legal");
-        } else if (request.getServletPath().contains("natural")) {
-            bankCustomers = new NaturalCustomerDAO().searchDBFor(searchKey, searchValue);
-            request.setAttribute("customer-type", "natural");
+        } else if (request.getServletPath().contains("real")) {
+            bankCustomers = new RealCustomerDAO().searchDBFor(searchKey, searchValue);
+            request.setAttribute("customer-type", "real");
         }
 
         request.setAttribute("customer-list", bankCustomers);

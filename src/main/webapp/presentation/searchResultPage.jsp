@@ -24,7 +24,7 @@
             <th> کد اقتصادی</th>
             <th colspan="2"><img src="presentation/images/settings-icon.png"></th>
         </tr>
-            <%} else if (customerType == "natural") { %>
+            <%} else if (customerType == "real") { %>
         <tr>
             <th>  کد ملی </th>
             <th> نام پدر </th>

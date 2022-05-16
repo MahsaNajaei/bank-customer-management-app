@@ -4,9 +4,8 @@ import ir.dotin.bank.cms.business.dto.BankCustomer;
 import ir.dotin.bank.cms.business.dto.CustomerType;
 import ir.dotin.bank.cms.business.dto.LegalCustomer;
 import ir.dotin.bank.cms.dal.helpers.CustomerRawDataExtractor;
+import ir.dotin.bank.cms.dal.init.DBConfiguration;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,7 +95,7 @@ public class LegalCustomerDAO implements BankCustomerDao {
         List<Map<String, String>> customers = new ArrayList();
         try {
             ResultSet resultSet = queryStatement.executeQuery("SELECT * from legal_customers where "
-                    + searchKey + "= \"" + searchValue + "\"");
+                    + searchKey + " LIKE '" + searchValue + "%'");
             while (resultSet.next()) {
                 Map<String, String> customerInfo = new HashMap();
                 customerInfo.put("customerId", resultSet.getString("customerId"));

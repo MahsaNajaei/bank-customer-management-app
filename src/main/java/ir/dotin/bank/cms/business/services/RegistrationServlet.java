@@ -38,12 +38,11 @@ public class RegistrationServlet extends HttpServlet {
             BankCustomer customer = new BankCustomerFactory().getBankCustomer(customerType, customerId);
 
             if (customerType.equals(CustomerType.LEGAL)) {
-                customerValidator.checkEconomicIdUniqueness(request.getParameter("economic_id"));
+                customerValidator.checkEconomicIdUniqueness(request.getParameter("economic-id"));
                 FormDataToDTOConvertor.setLegalCustomerAttributes(request, (LegalCustomer) customer);
-
-            } else if (customerType.equals(CustomerType.NATURAL)) {
-                customerValidator.checkNationalCodeUniqueness(request.getParameter("identity_number"));
-                FormDataToDTOConvertor.setNaturalCustomerAttributes(request, (NaturalCustomer) customer);
+            } else if (customerType.equals(CustomerType.REAL)) {
+                customerValidator.checkNationalCodeUniqueness(request.getParameter("identity-number"));
+                FormDataToDTOConvertor.setRealCustomerAttributes(request, (RealCustomer) customer);
             }
 
             new BankCustomerDAOFactory().getBankCustomerDAO(customerType).addCustomer(customer);
@@ -64,8 +63,8 @@ public class RegistrationServlet extends HttpServlet {
     private CustomerType extractCustomerType(String servletPath) {
         if (servletPath.contains("legal"))
             return CustomerType.LEGAL;
-        if (servletPath.contains("natural"))
-            return CustomerType.NATURAL;
+        if (servletPath.contains("real"))
+            return CustomerType.REAL;
         return null;
     }
 

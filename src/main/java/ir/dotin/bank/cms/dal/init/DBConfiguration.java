@@ -7,18 +7,18 @@ import java.sql.Statement;
 
 public class DBConfiguration {
 
-    public void setupDB() throws SQLException, ClassNotFoundException {
+    public static void setupDB() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "12345");
         Statement queryStatement = connection.createStatement();
         queryStatement.execute("CREATE DATABASE IF NOT EXISTS bankDB");
         queryStatement.execute("USE bankDB");
         setupLegaCustomersTable(queryStatement);
-        setupNaturalCustomersTable(queryStatement);
+        setupRealCustomersTable(queryStatement);
     }
 
-    private void setupNaturalCustomersTable(Statement queryStatement) throws SQLException {
-        queryStatement.execute("CREATE TABLE IF NOT EXISTS natural_customers " +
+    private static void setupRealCustomersTable(Statement queryStatement) throws SQLException {
+        queryStatement.execute("CREATE TABLE IF NOT EXISTS real_customers " +
                 "(customerId VARCHAR(10) NOT NULL," +
                 " name TINYTEXT," +
                 " surname TINYTEXT," +
@@ -29,7 +29,7 @@ public class DBConfiguration {
                 " UNIQUE (nationalCode))");
     }
 
-    private void setupLegaCustomersTable(Statement queryStatement) throws SQLException {
+    private static void setupLegaCustomersTable(Statement queryStatement) throws SQLException {
         queryStatement.execute("CREATE TABLE IF NOT EXISTS legal_customers " +
                 "(customerId VARCHAR(10) NOT NULL," +
                 " companyName TINYTEXT," +

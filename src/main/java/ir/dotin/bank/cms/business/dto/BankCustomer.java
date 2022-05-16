@@ -21,8 +21,4 @@ public class BankCustomer {
         return customerType;
     }
 
-    @Override
-    public String toString() {
-        return  "customerId=" + customerId + ",customerType=" + customerType;
-    }
 }
