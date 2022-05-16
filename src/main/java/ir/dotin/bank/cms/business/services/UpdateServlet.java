@@ -1,7 +1,10 @@
 package ir.dotin.bank.cms.business.services;
 
 import ir.dotin.bank.cms.business.dto.*;
+import ir.dotin.bank.cms.business.exceptions.DuplicatedEconomicId;
+import ir.dotin.bank.cms.business.exceptions.DuplicatedNationalCode;
 import ir.dotin.bank.cms.business.tools.FormDataToDTOConvertor;
+import ir.dotin.bank.cms.business.validations.CustomerValidator;
 import ir.dotin.bank.cms.dal.BankCustomerDAOFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "updateServlet")
 public class UpdateServlet extends HttpServlet {
@@ -36,7 +40,20 @@ public class UpdateServlet extends HttpServlet {
             FormDataToDTOConvertor.setLegalCustomerAttributes(request, (LegalCustomer) updatedCustomer);
         else if (CustomerType.NATURAL == customerType)
             FormDataToDTOConvertor.setNaturalCustomerAttributes(request, (NaturalCustomer) updatedCustomer);
-        new BankCustomerDAOFactory().getBankCustomerDAO(customerType).updateCustomer(updatedCustomer);
-        response.getWriter().println("ok");
+        try {
+            new CustomerValidator().validateCustomer(updatedCustomer);
+            new BankCustomerDAOFactory().getBankCustomerDAO(customerType).updateCustomer(updatedCustomer);
+            response.getWriter().println("update succeeded!");
+        } catch (DuplicatedEconomicId e) {
+            response.getWriter().println(e.getMessage());
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.getWriter().println("Sorry a problem has occurred in server. Please try again!");
+        } catch (DuplicatedNationalCode e) {
+            response.getWriter().println(e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 }
