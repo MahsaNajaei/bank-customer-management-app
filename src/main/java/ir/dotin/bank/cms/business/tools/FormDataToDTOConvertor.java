@@ -16,7 +16,7 @@ public class FormDataToDTOConvertor {
     }
     public synchronized static void setNaturalCustomerAttributes(HttpServletRequest request, NaturalCustomer naturalCustomer) {
         naturalCustomer.setNationalCode(request.getParameter("identity_number"));
-        naturalCustomer.setName(request.getParameter("name"));
+        naturalCustomer.setName(request.getParameter("customer_name"));
         naturalCustomer.setSurname(request.getParameter("surname"));
         naturalCustomer.setFathersName(request.getParameter("fathers_name"));
         naturalCustomer.setBirthDate(Date.valueOf(request.getParameter("birth_year") + "-" +

@@ -55,7 +55,6 @@
             <label> کد ملی <input type="text" name="identity_number" value="<%=naturalCustomer.getNationalCode()%>"
                                   pattern="[0-9]{10}" required onchange="this.setCustomValidity('')"
                                   oninvalid="showNationalCodeAlert(this)"> </label>
-
             <input class="submit-button" type="submit" value="ویرایش">
         </form>
     </span>
