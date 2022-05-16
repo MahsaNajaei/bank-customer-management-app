@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+    <servlet>
+        <servlet-name>StaticContentHandlerServlet</servlet-name>
+        <servlet-class>ir.dotin.bank.cms.business.services.StaticContentHandlerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>registrationServlet</servlet-name>
+        <servlet-class>ir.dotin.bank.cms.business.services.RegistrationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>searchServlet</servlet-name>
+        <servlet-class>ir.dotin.bank.cms.business.services.searchServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateServlet</servlet-name>
+        <servlet-class>ir.dotin.bank.cms.business.services.UpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteServlet</servlet-name>
+        <servlet-class>ir.dotin.bank.cms.business.services.DeleteServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>StaticContentHandlerServlet</servlet-name>
+        <url-pattern>/legal-customer</url-pattern>
+        <url-pattern>/natural-customer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registrationServlet</servlet-name>
+        <url-pattern>/legal-register</url-pattern>
+        <url-pattern>/natural-register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchServlet</servlet-name>
+        <url-pattern>/legal-search</url-pattern>
+        <url-pattern>/natural-search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateServlet</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>

@@ -1,0 +1,7 @@
+out/
+*.class
+target/
+*Test/
+*Test.java
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar

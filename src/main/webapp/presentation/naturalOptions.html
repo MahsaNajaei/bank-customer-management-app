@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa_IR">
+<head>
+    <meta charset="UTF-8">
+    <link href="BCM.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <title> مدیریت مشتری حقوقی </title>
+</head>
+<body>
+<div id="app_title"></div>
+<div id="legal_options_wrapper">
+
+    <a href="../index.html" class="return_home_button" style="">
+        <img alt="صفحه ی اصلی" src="images/home-icon.png" title="بازگشت به صفحه ی اصلی"> </a>
+
+    <input type="radio" name="tabs" id="registration_tab" checked>
+    <label for="registration_tab"> تعریف مشتری جدید </label>
+
+    <input type="radio" name="tabs" id="search_tab">
+    <label for="search_tab"> جستجو </label>
+
+    <div id="registration_form_wrapper" class="form_content">
+        <script> $("#registration_form_wrapper").load("natural-person-form.html")</script>
+    </div>
+
+    <div id="search_form_wrapper" class="form_content">
+        <form method="get" action="../natural-search">
+
+            <content type="text"> جستجو بر اساس</content>
+
+            <select name="search-domain">
+                <option value="customerId"> شماره مشتری</option>
+                <option value="name"> نام</option>
+                <option value="surname"> نام خانوادگی</option>
+                <option value="nationalCode"> کد ملی</option>
+            </select>
+
+            <div id="search-bar">
+                <input type="text" name="search-content" required oninvalid="showNullAlert()"
+                       onchange="setCustomValidity('')">
+                <input type="image" src="images/search-icon.png">
+            </div>
+
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

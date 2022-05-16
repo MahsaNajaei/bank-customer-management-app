@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="bank-customer-management-service:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>bank-customer-management-service</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="customer-management-service-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="bank-customer-management-service:war exploded" />
+    </root>
+  </artifact>
+</component>

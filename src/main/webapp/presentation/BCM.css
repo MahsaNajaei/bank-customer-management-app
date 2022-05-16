@@ -1,0 +1,301 @@
+/*overall settings*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: url("images/background.jpg") fixed center/cover no-repeat;
+    text-align: center;
+    color: #75BBDA;
+}
+
+#app_title::before {
+    width: 30%;
+    font-size: xx-large;
+    margin-top: 7%;
+    margin-bottom: 3%;
+    content: "سامانه مدیریت مشتریان بانک ";
+    color: azure;
+    display: inline-block;
+}
+
+input {
+    border-radius: 25px;
+    padding: 1%;
+    border: none;
+    outline: none;
+    max-width: 100%;
+    color: steelblue;
+    text-align: center;
+    font-size: medium;
+    margin-top: 1%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 50%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: steelblue;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #89CAE2;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #89CAE2;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #89CAE2;
+}
+
+a {
+    text-decoration: none;
+    color: azure;
+}
+
+/* legal form css */
+.form_wrapper {
+    font-size: large;
+    padding-bottom: 5%;
+}
+
+.return_home_button {
+    float: left;
+    display: inline-block;
+    width: 15%;
+}
+
+.form_wrapper label {
+    display: block;
+    margin-bottom: 2%;
+}
+
+.submit-button {
+    min-width: 24%;
+    margin-top: 4%;
+    cursor: pointer;
+    background: #75BBDA;
+    font-size: large;
+    color: azure;
+}
+
+.date-wrapper {
+    width: 100%;
+    margin-top: 1%;
+}
+
+.date-wrapper input {
+    display: inline;
+    width: 16%;
+    min-width: 45px;
+    margin: 1% 0;
+    border-radius: 0;
+}
+
+.date-wrapper input:first-child {
+    border-radius: 0 25px 25px 0;
+}
+
+.date-wrapper input:last-child {
+    border-radius: 25px 0 0 25px;
+}
+
+/* home page css */
+#home_options {
+    background: #b0dff7;
+    font-size: small;
+    margin-top: 2%;
+    width: 50%;
+    position: fixed;
+    transform: translateX(-50%);
+}
+
+#home_options > div {
+    float: left;
+    width: 33.3%;
+}
+
+#home_options h1 {
+    margin-top: 50%;
+    transform: translateY(-50%);
+    line-height: 100%;
+}
+
+#customer-image {
+    width: 100%;
+}
+
+
+/* legal page css */
+#legal_options_wrapper {
+    background: aliceblue;
+    width: 34%;
+    padding: 2% 2% 1%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#legal_options_wrapper > input {
+    display: none;
+}
+
+
+#legal_options_wrapper > label {
+    display: inline-block;
+    color: lightblue;
+    font-size: large;
+    font-weight: bold;
+    float: right;
+    padding: 2%;
+}
+
+#legal_options_wrapper > label:hover {
+    color: skyblue;
+    cursor: pointer;
+}
+
+#legal_options_wrapper > input:checked + label {
+    color: #75BBDA;
+    border: 1px solid lightblue;
+    border-top: 2px solid orange;
+    border-bottom: 1px solid aliceblue;
+}
+
+.form_content {
+    display: none;
+    border-top: 1px solid #89CAE2;
+    padding-top: 6%;
+}
+
+#search_tab:checked ~ #search_form_wrapper, #registration_tab:checked ~ #registration_form_wrapper {
+    display: inline-block;
+    width: 100%;
+    margin-top: -1px;
+}
+
+/*search box css*/
+#search_form_wrapper form * {;
+    float: right;
+    margin: 0% 0.5% 4%;
+    height: 40px;
+}
+
+#search_form_wrapper select {
+    border-radius: 25px;
+    border: none;
+    font-size: 15px;
+    color: #75BBDA;
+    outline: none;
+}
+
+#search_form_wrapper content {
+    line-height: 40px;
+    margin-left: 5px;
+}
+
+
+#search-bar {
+    min-width: 50%;
+}
+
+#search_form_wrapper input[type=text] {
+    width: 84%;
+    border-radius: 0 25px 25px 0;
+    margin: 0;
+    float: right;
+    display: inline;
+}
+
+#search_form_wrapper input[type=image] {
+    min-width: auto;
+    width: 16%;
+    border-radius: 25px 0 0 25px;
+    margin: 0;
+    background: white;
+    float: left;
+    display: inline;
+    padding: 2.5%;
+}
+
+/* search result page css */
+#result_table_wrapper {
+    display: inline-block;
+    width: 90%;
+    overflow-x: auto;
+}
+
+#result_table_wrapper table {
+    max-width: 100%;
+    min-width: 60%;
+    text-align: center;
+    border-collapse: collapse;
+    border: 2px solid #75BBDA;
+    color: steelblue;
+    background-color: #eff3f6;
+    table-layout: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+td, th {
+    padding: 8px;
+}
+
+th > img {
+    width: 27px;
+    padding: 0;
+}
+
+a > img {
+    width: 25px;
+    padding: 0;
+}
+
+th, td:nth-last-child(2) {
+    border: 1px solid #75BBDA;
+}
+
+tr:nth-child(even) {
+    background: #b7dcf2;
+}
+
+/* edit page css */
+#edit_form_wrapper {
+    width: 43%;
+    height: 370px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: aliceblue;
+
+}
+
+#edit_form_wrapper span {
+    float: left;
+}
+
+#edit_image {
+    opacity: 0.95;
+    height: 370px;
+    width: 43%;
+    background-image: url("images/edit-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+#edit_form {
+    width: 57%;
+    transform: translateY(25%);
+}
+
+

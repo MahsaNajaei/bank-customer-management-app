@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa_IR">
+<head>
+    <meta charset="UTF-8">
+    <link href="BCM.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <title> مدیریت مشتری حقوقی</title>
+</head>
+<body>
+<div id="app_title"></div>
+
+<div id="legal_options_wrapper">
+
+    <a href="../index.html" class="return_home_button" style="">
+        <img alt="صفحه ی اصلی" src="images/home-icon.png" title="بازگشت به صفحه ی اصلی"> </a>
+
+    <input type="radio" name="tabs" id="registration_tab" checked>
+    <label for="registration_tab"> تعریف مشتری جدید </label>
+
+    <input type="radio" name="tabs" id="search_tab">
+    <label for="search_tab"> جستجو </label>
+
+    <div id="registration_form_wrapper" class="form_content">
+        <form class="form_wrapper"  method="post" action="../legal-register" accept-charset="UTF-8">
+            <label> نام شرکت <input type="text" name="company_name" required oninvalid="showNullAlert(this)"> </label>
+            <label>
+                تاریخ ثبت
+                <div class="date-wrapper">
+                    <input type="text" name="registration_day" placeholder="روز" pattern="[1-9]|[1-2][0-9]|3[0-1]"
+                           required
+                           oninvalid="showDayInvalidAlert(this)" onchange="this.setCustomValidity('')">
+                    <input type="text" name="registration_month" placeholder="ماه" required pattern="((0)?[1-9]|1[0-2])"
+                           oninvalid="showMonthInvalidAlert(this)" onchange="this.setCustomValidity('') "
+                           style="border-radius: 0;">
+                    <input type="text" name="registration_year" placeholder="سال" required pattern="[1-9][0-9]{3}"
+                           oninvalid="showYearInvalidAlert(this)" onchange="this.setCustomValidity('')">
+                </div>
+            </label>
+            <label> کد اقتصادی <input type="text" name="economic_id" pattern="[0-9]{12}" required
+                                      oninvalid="showEconomicCodeAlert(this)"> </label>
+            <input type="submit" class="submit-button" value="ثبت">
+        </form>
+    </div>
+
+    <div id="search_form_wrapper" class="form_content">
+        <form method="get" action="../legal-search">
+
+            <content type="text"> جستجو بر اساس</content>
+            <select name="search-domain">
+                <option value="companyName"> نام شرکت</option>
+                <option value="economicId"> کد اقتصادی</option>
+                <option value="customerId"> شماره مشتری</option>
+            </select>
+            <div id="search-bar">
+                <input type="text" name="search-content" required oninvalid="showNullAlert()" onchange="">
+                <input type="image" src="images/search-icon.png">
+            </div>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
