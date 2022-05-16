@@ -3,6 +3,7 @@ package ir.dotin.bank.cms.dal;
 import ir.dotin.bank.cms.business.dto.BankCustomer;
 import ir.dotin.bank.cms.business.dto.CustomerType;
 import ir.dotin.bank.cms.business.dto.LegalCustomer;
+import ir.dotin.bank.cms.dal.helpers.CustomerRawDataExtractor;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -49,7 +50,7 @@ public class LegalCustomerDAO implements BankCustomerDao {
 
     @Override
     public void updateCustomer(BankCustomer bankCustomer) {
-        String assignmentList = extractAssignmentList(bankCustomer);
+        String assignmentList = CustomerRawDataExtractor.extractAssignmentList(bankCustomer);
         try {
             queryStatement.execute("UPDATE legal_customers SET " + assignmentList + "WHERE customerId = " + bankCustomer.getCustomerId());
         } catch (SQLException e) {
@@ -57,26 +58,6 @@ public class LegalCustomerDAO implements BankCustomerDao {
         }
     }
 
-    private String extractAssignmentList(BankCustomer bankCustomer) {
-        String assignmentList = "";
-        String separator = "";
-        for (Method method : bankCustomer.getClass().getMethods()) {
-            try {
-                if (method.getName().contains("get") && !method.getName().equalsIgnoreCase("getClass")) {
-                    Object methodResult = method.invoke(bankCustomer);
-                    if (methodResult != null) {
-                        assignmentList += (separator + method.getName().substring(3) + " = '" + methodResult + "'");
-                        separator = ", ";
-                    }
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        }
-        return assignmentList;
-    }
 
     @Override
     public void deleteCustomer(long customerId) {

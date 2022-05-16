@@ -8,13 +8,13 @@ import java.sql.Date;
 
 public class FormDataToDTOConvertor {
 
-    public static void setLegalCustomerAttributes(HttpServletRequest request, LegalCustomer legalCustomer) {
+    public synchronized static void setLegalCustomerAttributes(HttpServletRequest request, LegalCustomer legalCustomer) {
         legalCustomer.setEconomicId(request.getParameter("economic_id"));
         legalCustomer.setCompanyName(request.getParameter("company_name"));
         legalCustomer.setRegistrationDate(Date.valueOf(request.getParameter("registration_year") + "-"
                 + request.getParameter("registration_month") + "-" + request.getParameter("registration_day")));
     }
-    public static void setNaturalCustomerAttributes(HttpServletRequest request, NaturalCustomer naturalCustomer) {
+    public synchronized static void setNaturalCustomerAttributes(HttpServletRequest request, NaturalCustomer naturalCustomer) {
         naturalCustomer.setNationalCode(request.getParameter("identity_number"));
         naturalCustomer.setName(request.getParameter("name"));
         naturalCustomer.setSurname(request.getParameter("surname"));
