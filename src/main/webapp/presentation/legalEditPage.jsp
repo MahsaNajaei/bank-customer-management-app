@@ -1,4 +1,4 @@
-<%@ page import="ir.dotin.bank.cms.business.dto.LegalCustomer" %>
+<%@ page import="ir.dotin.bank.cms.business.objects.values.LegalCustomer" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -29,9 +29,9 @@
                 document.getElementById("legal_registration_form").innerHTML = "<lable> شماره مشتری <input type='text' value='<%=request.getParameter("customer-id")%>' name='customer-id' required readonly style=' margin-bottom:3%; color: #75BBDA'> </lable>" + innerHtml;
                 document.getElementsByName("company-name")[0].value = "<%=legalCustomer.getCompanyName()%>";
                 document.getElementsByName("economic-id")[0].value = <%=legalCustomer.getEconomicId()%>;
-                document.getElementsByName("registration-day")[0].value = <%= calendar.get(Calendar.DAY_OF_MONTH)%>;
-                document.getElementsByName("registration-month")[0].value = <%=calendar.get(Calendar.MONTH)+1%>;
-                document.getElementsByName("registration-year")[0].value = <%=calendar.get(Calendar.YEAR)%>;
+                document.getElementsByName("day")[0].value = <%= calendar.get(Calendar.DAY_OF_MONTH)%>;
+                document.getElementsByName("month")[0].value = <%=calendar.get(Calendar.MONTH)+1%>;
+                document.getElementsByName("year")[0].value = <%=calendar.get(Calendar.YEAR)%>;
                 postLegalUpdateRequestOnSubmit();
             });
         </script>

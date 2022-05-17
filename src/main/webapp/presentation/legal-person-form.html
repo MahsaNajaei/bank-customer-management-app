@@ -1,16 +1,18 @@
-<form class="form_wrapper" method="post" id="legal_registration_form" accept-charset="UTF-8" oninvalid="this.preventDefault();">
+<form class="form_wrapper" method="post" id="legal_registration_form" accept-charset="UTF-8"
+      oninvalid="this.preventDefault();">
     <label> نام شرکت <input type="text" name="company-name" maxlength="30" required oninvalid="showNullAlert(this)"
                             oninput="this.setCustomValidity('')"> </label>
 
     <label>
         تاریخ ثبت
         <div class="date-wrapper">
-            <input type="text" name="registration-day" placeholder="روز" maxlength="2" pattern="[1-9]|[1-2][0-9]|3[0-1]" required
+            <input type="text" name="day" placeholder="روز" maxlength="2" pattern="[1-9]|[1-2][0-9]|3[0-1]"
+                   required
                    oninvalid="showDayInvalidAlert(this)" oninput="this.setCustomValidity('')">
-            <input type="text" name="registration-month" placeholder="ماه" maxlength="2" pattern="((0)?[1-9]|1[0-2])" required
-                   oninvalid="showMonthInvalidAlert(this)" oninput="this.setCustomValidity('') "
-                   style="border-radius: 0;">
-            <input type="text" name="registration-year" placeholder="سال" maxlength="4" pattern="1[0-3][0-9]{2}|140[0-1]" required
+            <input type="text" name="month" placeholder="ماه" maxlength="2" required pattern="((0)?[1-9]|1[0-2])"
+                   oninvalid="showMonthInvalidAlert(this)" oninput="this.setCustomValidity('');" style="border-radius: 0;">
+            <input type="text" name="year" placeholder="سال" maxlength="4"
+                   pattern="1[0-3][0-9]{2}|140[0-1]" required
                    oninvalid="showYearInvalidAlert(this)" oninput="this.setCustomValidity('')">
         </div>
     </label>

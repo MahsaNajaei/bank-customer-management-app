@@ -1,12 +1,14 @@
 package ir.dotin.bank.cms.business.services;
 
-import ir.dotin.bank.cms.business.dto.*;
-import ir.dotin.bank.cms.business.exceptions.DuplicatedEconomicId;
-import ir.dotin.bank.cms.business.exceptions.DuplicatedNationalCode;
-import ir.dotin.bank.cms.business.tools.FormDataToDTOConvertor;
+import ir.dotin.bank.cms.business.exceptions.DuplicatedEconomicIdException;
+import ir.dotin.bank.cms.business.exceptions.DuplicatedNationalCodeException;
+import ir.dotin.bank.cms.business.objects.entities.CustomerEntity;
+import ir.dotin.bank.cms.business.objects.values.BankCustomer;
+import ir.dotin.bank.cms.business.objects.values.CustomerType;
+import ir.dotin.bank.cms.business.tools.DataConversionHandler;
 import ir.dotin.bank.cms.business.tools.UniqueIdGenerator;
 import ir.dotin.bank.cms.business.validations.CustomerValidator;
-import ir.dotin.bank.cms.dal.BankCustomerDAOFactory;
+import ir.dotin.bank.cms.dal.DefaultBankCustomerDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -35,24 +37,25 @@ public class RegistrationServlet extends HttpServlet {
         try {
             CustomerType customerType = extractCustomerType(request.getServletPath());
             long customerId = uniqueIdGenerator.generateNumberId();
-            BankCustomer customer = new BankCustomerFactory().getBankCustomer(customerType, customerId);
 
-            if (customerType.equals(CustomerType.LEGAL)) {
-                customerValidator.checkEconomicIdUniqueness(request.getParameter("economic-id"));
-                FormDataToDTOConvertor.setLegalCustomerAttributes(request, (LegalCustomer) customer);
-            } else if (customerType.equals(CustomerType.REAL)) {
-                customerValidator.checkNationalCodeUniqueness(request.getParameter("identity-number"));
-                FormDataToDTOConvertor.setRealCustomerAttributes(request, (RealCustomer) customer);
-            }
+            DataConversionHandler dataConversionHandler = new DataConversionHandler();
+            BankCustomer bankCustomer = null;
+            if (customerType.equals(CustomerType.LEGAL))
+                bankCustomer = dataConversionHandler.getInitializedLegalCustomer(request, customerId);
+            else if (customerType.equals(CustomerType.REAL))
+                bankCustomer = dataConversionHandler.getInitializedRealCustomer(request, customerId);
 
-            new BankCustomerDAOFactory().getBankCustomerDAO(customerType).addCustomer(customer);
+            customerValidator.validateCustomer(bankCustomer);
+            CustomerEntity customerEntity = dataConversionHandler.convertBankCustomerToEntity(bankCustomer);
+            new DefaultBankCustomerDAO().addCustomer(customerEntity);
+            //Todo check these lenes
             response.setContentType("text/plain");
             response.getWriter().println(customerId);
             response.getWriter().flush();
 
-        } catch (DuplicatedEconomicId e) {
+        } catch (DuplicatedEconomicIdException e) {
             response.getWriter().println(e.getMessage());
-        } catch (DuplicatedNationalCode e) {
+        } catch (DuplicatedNationalCodeException e) {
             response.getWriter().println(e.getMessage());
         } catch (SQLException e) {
             response.getWriter().println("Sorry a problem has occurred in server. Please try again!");
@@ -67,6 +70,5 @@ public class RegistrationServlet extends HttpServlet {
             return CustomerType.REAL;
         return null;
     }
-
 
 }

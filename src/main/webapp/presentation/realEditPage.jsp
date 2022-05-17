@@ -1,6 +1,6 @@
 <%@ page import="java.util.Calendar" %>
-<%@ page import="ir.dotin.bank.cms.business.dto.RealCustomer" %>
-<%@ page import="ir.dotin.bank.cms.business.dto.RealCustomer" %>
+<%@ page import="ir.dotin.bank.cms.business.objects.values.RealCustomer" %>
+<%@ page import="ir.dotin.bank.cms.business.objects.values.RealCustomer" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -36,9 +36,9 @@
 
                 document.getElementsByName("customer-name")[0].value = "<%=realCustomer.getName()%>";
                 document.getElementsByName("surname")[0].value = "<%=realCustomer.getSurname()%>";
-                document.getElementsByName("birth-day")[0].value = <%= calendar.get(Calendar.DAY_OF_MONTH)%>;
-                document.getElementsByName("birth-month")[0].value = <%=calendar.get(Calendar.MONTH)+1%>;
-                document.getElementsByName("birth-year")[0].value = <%=calendar.get(Calendar.YEAR)%>;
+                document.getElementsByName("day")[0].value = <%= calendar.get(Calendar.DAY_OF_MONTH)%>;
+                document.getElementsByName("month")[0].value = <%=calendar.get(Calendar.MONTH)+1%>;
+                document.getElementsByName("year")[0].value = <%=calendar.get(Calendar.YEAR)%>;
                 document.getElementsByName("fathers-name")[0].value = "<%= realCustomer.getFathersName()%>";
                 document.getElementsByName("identity-number")[0].value = "<%= realCustomer.getNationalCode()%>";
 

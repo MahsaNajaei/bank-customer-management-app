@@ -1,21 +1,22 @@
 package ir.dotin.bank.cms.dal;
 
-import ir.dotin.bank.cms.business.dto.BankCustomer;
+import ir.dotin.bank.cms.business.objects.entities.CustomerEntity;
+import ir.dotin.bank.cms.dal.exceptions.CustomerIdDoesNotExistsException;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public interface BankCustomerDao {
 
-    void addCustomer(BankCustomer customer);
+    void addCustomer(CustomerEntity customer) throws SQLException;
 
-    void updateCustomer(BankCustomer bankCustomer);
+    void updateCustomer(CustomerEntity customer) throws SQLException;
 
-    void deleteCustomer(long customerId);
+    void deleteCustomer(String customerId) throws SQLException;
 
-    BankCustomer retrieveCustomerById(long customerId);
+    CustomerEntity retrieveCustomerById(String customerId) throws SQLException, CustomerIdDoesNotExistsException;
 
-    boolean customerIdExists(long customerId) throws SQLException;
+    List<CustomerEntity> searchDBFor(String searchKey, String searchValue) throws SQLException;
 
-    List searchDBFor(String searchKey, String searchValue);
+    boolean exclusiveIdExists(String exclusiveId) throws SQLException;
 }

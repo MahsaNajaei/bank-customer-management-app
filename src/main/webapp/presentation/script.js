@@ -11,7 +11,7 @@ function showNationalCodeAlert(input) {
 }
 
 function showDayInvalidAlert(input) {
-    if (input.value == ""){
+    if (input.value == "") {
         return showNullAlert(input);
     }
     input.setCustomValidity("مقدار وارد شده برای روز نامعتبر است!");
@@ -103,6 +103,7 @@ async function postRealRegistrationRequestOnSubmit() {
         alert(message);
     });
 }
+
 async function postRealUpdateRequestOnSubmit() {
     let formElement = document.getElementById("real_form");
     formElement.addEventListener("submit", async function (event) {

@@ -13,29 +13,20 @@ public class DBConfiguration {
         Statement queryStatement = connection.createStatement();
         queryStatement.execute("CREATE DATABASE IF NOT EXISTS bankDB");
         queryStatement.execute("USE bankDB");
-        setupLegaCustomersTable(queryStatement);
-        setupRealCustomersTable(queryStatement);
+        setupCustomersTable(queryStatement);
     }
 
-    private static void setupRealCustomersTable(Statement queryStatement) throws SQLException {
-        queryStatement.execute("CREATE TABLE IF NOT EXISTS real_customers " +
-                "(customerId VARCHAR(10) NOT NULL," +
+    private static void setupCustomersTable(Statement queryStatement) throws SQLException {
+        queryStatement.execute("CREATE TABLE IF NOT EXISTS bank_customers " +
+                "(customerId VARCHAR(15) NOT NULL," +
+                " customerType TINYTEXT," +
                 " name TINYTEXT," +
                 " surname TINYTEXT," +
-                " fathersName TINYTEXT," +
-                " birthDate DATE," +
-                " nationalCode VARCHAR(10) NOT NULL," +
+                " parentName TINYTEXT," +
+                " date DATE," +
+                " exclusiveId VARCHAR(12) NOT NULL," +
                 " PRIMARY KEY (customerId)," +
-                " UNIQUE (nationalCode))");
+                " UNIQUE (exclusiveId))");
     }
 
-    private static void setupLegaCustomersTable(Statement queryStatement) throws SQLException {
-        queryStatement.execute("CREATE TABLE IF NOT EXISTS legal_customers " +
-                "(customerId VARCHAR(10) NOT NULL," +
-                " companyName TINYTEXT," +
-                " registrationDate DATE," +
-                " economicId VARCHAR(12) NOT NULL," +
-                " PRIMARY KEY (customerId)," +
-                " UNIQUE (economicId))");
-    }
 }
