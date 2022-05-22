@@ -59,13 +59,13 @@ public class CustomerValidator {
 
     private void validateRealCustomer(RealCustomerVO realCustomer) throws IllegalNationalCodeException {
         String nationalCode = realCustomer.getNationalCode();
-        if (nationalCode == null || nationalCode.length() != 10 || StringUtils.isNumeric(nationalCode))
+        if (nationalCode == null || nationalCode.length() != 10 || !StringUtils.isNumeric(nationalCode))
             throw new IllegalNationalCodeException();
     }
 
     private void validateLegalCustomer(LegalCustomerVO legalCustomer) throws IllegalEconomicIdException {
         String economicId = legalCustomer.getEconomicId();
-        if (economicId == null || economicId.length() != 12 || StringUtils.isNumeric(economicId))
+        if (economicId == null || economicId.length() != 12 || !StringUtils.isNumeric(economicId))
             throw new IllegalEconomicIdException();
     }
 
