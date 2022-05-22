@@ -4,7 +4,9 @@
     margin: 0;
     padding: 0;
 }
-
+html{
+    overflow-y: scroll;
+}
 body {
     background: url("images/background.jpg") fixed center/cover no-repeat;
     text-align: center;
@@ -21,6 +23,7 @@ body {
     content: "سامانه مدیریت مشتریان بانک ";
     color: azure;
     display: inline-block;
+    text-shadow: 0px 5px 10px #123042;
 }
 
 input {
@@ -72,6 +75,7 @@ a {
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 4% ;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 
@@ -90,6 +94,7 @@ a {
 .form_wrapper label {
     display: block;
     margin-bottom: 2%;
+    font-family: "MS Gothic";
 }
 
 .submit-button {
@@ -149,13 +154,14 @@ a {
 
 /* home page css */
 #home_page_title{
-    width: 70%;
+    width: 60%;
     margin-right: auto;
     margin-left: auto;
     color: #def4fd;
     font-family: "JetBrains Mono ExtraBold";
     font-size: xxx-large;
     margin-top: 10%;
+    text-shadow: 0px 5px 10px #123042;
 }
 #home_options_wrapper {
     font-size: small;
@@ -166,8 +172,8 @@ a {
     transform: translateX(-33.33%);
     display: flex;
 }
-
 .home_option {
+    box-shadow: 7px 13px 6px rgba(58, 100, 140, 0.71), 7px 13px 6px rgba(33, 68, 128, 0.52);
     background: #eff3f6;
     float: left;
     width: 33.33%;
@@ -278,7 +284,7 @@ tr:nth-child(even) {
     margin-left: auto;
     margin-right: auto;
     background-color: aliceblue;
-
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 #edit_form_wrapper span {

@@ -28,7 +28,6 @@ public class UpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            System.out.println("update is called with get method");
             String customerId = request.getParameter("customer-id");
             BankCustomerEntity bankCustomerEntity = new DefaultBankCustomerDAO().retrieveCustomerById(customerId);
             BankCustomerVO bankCustomerVO = new DataMapper().convertCustomerEntityToBankCustomerVO(bankCustomerEntity);
@@ -49,7 +48,6 @@ public class UpdateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("update is called with post method!");
 
         long customerId = Long.parseLong(request.getParameter("customer-id"));
         CustomerType customerType = CustomerType.valueOf(request.getParameter("customer-type").toUpperCase());

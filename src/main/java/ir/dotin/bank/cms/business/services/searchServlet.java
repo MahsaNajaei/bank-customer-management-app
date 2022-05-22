@@ -21,14 +21,12 @@ public class searchServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("search get method is called");
         req.setAttribute("search-called-by-delete_servlet", true);
         doPost(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("search post method is called");
         try {
             DataMapper dataMapper = new DataMapper();
             Map<String, String> searchKeyValues = dataMapper.mapRequestParamsToSearchKeyValues(req);

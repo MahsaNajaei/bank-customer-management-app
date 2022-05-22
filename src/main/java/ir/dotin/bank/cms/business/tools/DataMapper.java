@@ -136,8 +136,7 @@ public class DataMapper {
                 if (date != null)
                     continue;
                 dbColumnName = "date";
-                date = getDateStringFromRequestParams(request);
-                value = date.replace("-[1-9]-", "-0[1-9]-");
+                value = date = getDateStringFromRequestParams(request);
             } else {
                 dbColumnName = (String) formDbMappingProperties.get(formInputName);
                 value = request.getParameter(formInputName);
