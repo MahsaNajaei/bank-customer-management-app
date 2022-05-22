@@ -9,13 +9,15 @@ body {
     background: url("images/background.jpg") fixed center/cover no-repeat;
     text-align: center;
     color: #75BBDA;
+    font-family: Fantasy;
 }
 
 #app_title::before {
     width: 30%;
     font-size: xx-large;
-    margin-top: 7%;
+    margin-top: 5%;
     margin-bottom: 3%;
+    font-weight: bold;
     content: "سامانه مدیریت مشتریان بانک ";
     color: azure;
     display: inline-block;
@@ -27,7 +29,7 @@ input {
     border: none;
     outline: none;
     max-width: 100%;
-    color: steelblue;
+    color: #5488b2;
     text-align: center;
     font-size: medium;
     margin-top: 1%;
@@ -63,7 +65,17 @@ a {
     color: azure;
 }
 
-/* legal form css */
+#content_wrapper{
+    background: aliceblue;
+    width: 34%;
+    padding: 2% 2% 1%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 4% ;
+}
+
+
+/* form css */
 .form_wrapper {
     font-size: large;
     padding-bottom: 5%;
@@ -84,7 +96,8 @@ a {
     min-width: 24%;
     margin-top: 4%;
     cursor: pointer;
-    background: #75BBDA;
+    background: #80c2ec;
+    background: #6eb9e7;
     font-size: large;
     color: azure;
 }
@@ -110,65 +123,16 @@ a {
     border-radius: 25px 0 0 25px;
 }
 
-/* home page css */
-#home_options {
-    background: #b0dff7;
-    font-size: small;
-    margin-top: 2%;
-    width: 50%;
-    position: fixed;
-    transform: translateX(-50%);
-}
-
-#home_options > div {
-    float: left;
-    width: 33.3%;
-}
-
-#home_options h1 {
-    margin-top: 50%;
-    transform: translateY(-50%);
-    line-height: 100%;
-}
-
-#customer-image {
-    width: 100%;
-}
-
-
-/* legal page css */
-#legal_options_wrapper {
-    background: aliceblue;
-    width: 34%;
-    padding: 2% 2% 1%;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-#legal_options_wrapper > input {
-    display: none;
-}
-
-
-#legal_options_wrapper > label {
-    display: inline-block;
-    color: lightblue;
+#form_title_wrapper{
+    max-width: 150px;
+    float: right;
     font-size: large;
     font-weight: bold;
-    float: right;
-    padding: 2%;
-}
-
-#legal_options_wrapper > label:hover {
-    color: skyblue;
-    cursor: pointer;
-}
-
-#legal_options_wrapper > input:checked + label {
     color: #75BBDA;
     border: 1px solid lightblue;
     border-top: 2px solid orange;
     border-bottom: 1px solid aliceblue;
+    padding: 2%;
 }
 
 .form_content {
@@ -177,54 +141,84 @@ a {
     padding-top: 6%;
 }
 
-#search_tab:checked ~ #search_form_wrapper, #registration_tab:checked ~ #registration_form_wrapper {
+#registration_form_wrapper{
     display: inline-block;
     width: 100%;
     margin-top: -1px;
 }
 
-/*search box css*/
-#search_form_wrapper form * {;
-    float: right;
-    margin: 0% 0.5% 4%;
-    height: 40px;
+/* home page css */
+#home_page_title{
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+    color: #def4fd;
+    font-family: "JetBrains Mono ExtraBold";
+    font-size: xxx-large;
+    margin-top: 12%;
+}
+#home_options_wrapper {
+    font-size: small;
+    margin-top: 4%;
+    width: 60%;
+    height: 28%;
+    position: fixed;
+    transform: translateX(-33.33%);
+    display: flex;
 }
 
-#search_form_wrapper select {
+.home_option {
+    background: #eff3f6;
+    float: left;
+    width: 33.33%;
+    text-align: center;
+    margin: 1%;
+    border-radius: 10%;
+}
+
+.home_option img{
+    background-color: #d6f1ff;
+    background-color: #cce5f8;
+    width: 30%;
+    padding: 2%;
+    min-width: 50px ;
+    margin-top: 10%;
+    border-radius: 50%;
+}
+
+.home_option h1{
+    height: 100%;
+    width: 100%;
+    margin-top: 3%;
+    color: #77a6cb;
+    font-size:x-large;
+    font-weight: normal;
+}
+
+/* search page css */
+#search_box_wrapper div {
+    display: inline-block;
+    width: 100%;
+    padding: 3%;
+}
+
+#search_domain_wrapper{
+    border-top: 1px solid lightblue;
+    display: inline-block;
+    margin-top: -1px;
+    text-align: right;
+    font-size: large;
+    width: 100%;
+    padding: 4% 4% 1%;
+}
+
+#search_domain_wrapper select {
     border-radius: 25px;
     border: none;
     font-size: 15px;
     color: #75BBDA;
     outline: none;
-}
-
-#search_form_wrapper content {
-    line-height: 40px;
-    margin-left: 5px;
-}
-
-
-#search-bar {
-    min-width: 50%;
-}
-
-#search_form_wrapper input[type=text] {
-    width: 84%;
-    border-radius: 0 25px 25px 0;
-    margin: 0;
-    float: right;
-    display: inline;
-}
-
-#search_form_wrapper input[type=image] {
-    min-width: auto;
-    width: 16%;
-    border-radius: 25px 0 0 25px;
-    margin: 0;
-    background: white;
-    float: left;
-    display: inline;
-    padding: 2.5%;
+    padding: 1%;
 }
 
 /* search result page css */
@@ -240,15 +234,23 @@ a {
     text-align: center;
     border-collapse: collapse;
     border: 2px solid #75BBDA;
-    color: steelblue;
+    color: #206a94;
+    font-family: "Cambria Math";
     background-color: #eff3f6;
     table-layout: auto;
     margin-right: auto;
     margin-left: auto;
-}
+    margin-bottom: 3%;
 
+}
+#result_table_wrapper h2 {
+    color: #eff3f6;
+    margin-bottom: 0.5%;
+    font-weight: normal;
+}
 td, th {
     padding: 8px;
+
 }
 
 th > img {

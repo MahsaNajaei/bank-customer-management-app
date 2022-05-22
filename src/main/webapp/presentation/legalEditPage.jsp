@@ -1,5 +1,6 @@
-<%@ page import="ir.dotin.bank.cms.business.objects.values.LegalCustomer" %>
+<%@ page import="ir.dotin.bank.cms.business.dataobjects.values.LegalCustomerVO" %>
 <%@ page import="java.util.Calendar" %>
+<%@ page import="ir.dotin.bank.cms.business.dataobjects.values.LegalCustomerVO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html dir="rtl" lang="fa_IR">
@@ -18,15 +19,15 @@
     <span id="edit_image"> </span>
     <span id="edit_form" style="transform: translateY(18%);">
         <%
-            LegalCustomer legalCustomer = (LegalCustomer) request.getAttribute("customer");
+            LegalCustomerVO legalCustomer = (LegalCustomerVO) request.getAttribute("customer");
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(legalCustomer.getRegistrationDate());
         %>
         <script>
             $("#edit_form").load("presentation/legal-person-form.html", function () {
                 document.getElementsByClassName("submit-button")[0].value = "ویرایش";
-                let innerHtml = document.getElementById("legal_registration_form").innerHTML;
-                document.getElementById("legal_registration_form").innerHTML = "<lable> شماره مشتری <input type='text' value='<%=request.getParameter("customer-id")%>' name='customer-id' required readonly style=' margin-bottom:3%; color: #75BBDA'> </lable>" + innerHtml;
+                let innerHtml = document.getElementById("legal_form").innerHTML;
+                document.getElementById("legal_form").innerHTML = "<lable> شماره مشتری <input type='text' value='<%=request.getParameter("customer-id")%>' name='customer-id' required readonly style=' margin-bottom:3%; color: #75BBDA'> </lable>" + innerHtml;
                 document.getElementsByName("company-name")[0].value = "<%=legalCustomer.getCompanyName()%>";
                 document.getElementsByName("economic-id")[0].value = <%=legalCustomer.getEconomicId()%>;
                 document.getElementsByName("day")[0].value = <%= calendar.get(Calendar.DAY_OF_MONTH)%>;

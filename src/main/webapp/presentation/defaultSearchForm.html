@@ -1,0 +1,24 @@
+<form class="form_wrapper" method="post" id="search_form" accept-charset="UTF-8">
+    <label> نام <input type="text" name="company-name" maxlength="30" required oninvalid="showNullAlert(this)"
+                       oninput="this.setCustomValidity('')"> </label>
+    <label>
+        تاریخ تولد یا تاریخ ثبت
+        <div class="date-wrapper">
+            <input type="text" name="day" placeholder="روز" maxlength="2" pattern="[1-9]|[1-2][0-9]|3[0-1]"
+                   oninvalid="showDayInvalidAlert(this)" oninput="this.setCustomValidity('')">
+            <input type="text" name="month" placeholder="ماه" maxlength="2" required pattern="((0)?[1-9]|1[0-2])"
+                   oninvalid="showMonthInvalidAlert(this)" oninput="this.setCustomValidity('');" style="border-radius: 0;">
+            <input type="text" name="year" placeholder="سال" maxlength="4"
+                   pattern="1[0-3][0-9]{2}|140[0-1]" required
+                   oninvalid="showYearInvalidAlert(this)" oninput="this.setCustomValidity('')">
+        </div>
+    </label>
+
+    <label> کد اقتصادی یا کد ملی <input type="text" name="economic-id" maxlength="12" pattern="[0-9]+"
+                                        oninvalid="showEconomicCodeAlert(this)" oninput="this.setCustomValidity('')"> </label>
+
+    <label> شماره مشتری <input type="text" name="customer-id" maxlength="10" pattern="[0-9]+"
+                               oninvalid="showEconomicCodeAlert(this)" oninput="this.setCustomValidity('')"> </label>
+
+    <input type="submit" class="submit-button" id="registration_submit" value="جستجو">
+</form>

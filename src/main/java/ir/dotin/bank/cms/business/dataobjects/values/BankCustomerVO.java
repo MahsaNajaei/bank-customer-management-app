@@ -1,11 +1,11 @@
-package ir.dotin.bank.cms.business.objects.values;
+package ir.dotin.bank.cms.business.dataobjects.values;
 
-public class BankCustomer {
+public class BankCustomerVO {
 
     private final long customerId;
     private CustomerType customerType;
 
-    public BankCustomer(long customerId, CustomerType customerType) {
+    public BankCustomerVO(long customerId, CustomerType customerType) {
         this.customerId = customerId;
         this.customerType = customerType;
     }

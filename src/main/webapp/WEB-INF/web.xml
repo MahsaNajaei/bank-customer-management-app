@@ -28,8 +28,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>searchServlet</servlet-name>
-        <url-pattern>/legal-search</url-pattern>
-        <url-pattern>/real-search</url-pattern>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>deleteServlet</servlet-name>

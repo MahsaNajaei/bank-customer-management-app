@@ -34,26 +34,14 @@ function showNullAlert(input) {
     input.setCustomValidity("لطفا فرم را کامل پر کنید!");
 }
 
-function getLegalFormParameters(formElement) {
-    const formData = new FormData(formElement);
-    const params = new URLSearchParams();
-
-    if (formData.has("customer-id")) {
-        params.append("customer-id", formData.get("customer-id").toString());
-    }
-    params.append('company-name', formData.get("company-name").toString());
-    params.append('economic-id', formData.get("economic-id").toString());
-    params.append('registration-day', formData.get("registration-day").toString());
-    params.append('registration-month', formData.get("registration-month").toString());
-    params.append('registration-year', formData.get("registration-year").toString());
-
-    return params;
+function showCustomerIdAlert(input) {
+    input.setCustomValidity("شماره مشتری از عدد تشکیل شده و حداکثر ده رقم است!");
 }
 
 async function postLegalRegistrationRequestOnSubmit() {
-    let formElement = document.getElementById("legal_registration_form");
+    let formElement = document.getElementById("legal_form");
     formElement.addEventListener("submit", async function (event) {
-        const params = getLegalFormParameters(formElement);
+        const params = getFormParameters(formElement);
         event.preventDefault();
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('../legal-register', fetchSettings);
@@ -63,9 +51,9 @@ async function postLegalRegistrationRequestOnSubmit() {
 }
 
 async function postLegalUpdateRequestOnSubmit() {
-    let formElement = document.getElementById("legal_registration_form");
+    let formElement = document.getElementById("legal_form");
     formElement.addEventListener("submit", async function (event) {
-        const params = getLegalFormParameters(formElement);
+        const params = getFormParameters(formElement);
         event.preventDefault();
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('update?customer-type=legal', fetchSettings);
@@ -74,21 +62,15 @@ async function postLegalUpdateRequestOnSubmit() {
     })
 }
 
-function getRealFormParameters(formElement) {
+function getFormParameters(formElement) {
     const formData = new FormData(formElement);
     const params = new URLSearchParams();
-
-    if (formData.has("customer-id")) {
-        params.append("customer-id", formData.get("customer-id").toString());
+    for (const key of formData.keys()) {
+        let value = formData.get(key);
+        if (value.length > 0) {
+            params.append(key, value.toString())
+        }
     }
-    params.append('customer-name', formData.get("customer-name").toString());
-    params.append('surname', formData.get("surname").toString());
-    params.append('fathers-name', formData.get("fathers-name").toString());
-    params.append('birth-day', formData.get("birth-day").toString());
-    params.append('birth-month', formData.get("birth-month").toString());
-    params.append('birth-year', formData.get("birth-year").toString());
-    params.append('identity-number', formData.get("identity-number").toString());
-
     return params;
 }
 
@@ -96,7 +78,7 @@ async function postRealRegistrationRequestOnSubmit() {
     let formElement = document.getElementById("real_form");
     formElement.addEventListener("submit", async function (event) {
         event.preventDefault();
-        const params = getRealFormParameters(formElement);
+        const params = getFormParameters(formElement);
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('../real-register', fetchSettings);
         let message = await response.text();
@@ -107,11 +89,55 @@ async function postRealRegistrationRequestOnSubmit() {
 async function postRealUpdateRequestOnSubmit() {
     let formElement = document.getElementById("real_form");
     formElement.addEventListener("submit", async function (event) {
-        const params = getRealFormParameters(formElement);
+        const params = getFormParameters(formElement);
         event.preventDefault();
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('update?customer-type=real', fetchSettings);
         let message = await response.text();
         alert(message);
+    })
+}
+
+function loadSearchFormBasedOnSelection() {
+    const domainSelectElement = document.getElementsByName("search-domain")[0];
+
+    domainSelectElement.addEventListener("click", function (event) {
+        if (event.target.value == "all") {
+            $("#search_form_wrapper").load("defaultSearchForm.html", function () {
+                setSearchSubmitEvent(document.getElementById("search_form"), "all");
+            });
+        }
+
+        if (event.target.value == "legal") {
+            $("#search_form_wrapper").load("legal-person-form.html", function () {
+                setSearchSubmitEvent(document.getElementById("legal_form"), "legal")
+                let innerHtml = document.getElementById("legal_form").innerHTML;
+                document.getElementById("legal_form").innerHTML = "<lable> شماره مشتری <input type='text' pattern='[0-9]+' oninvalid='showCustomerIdAlert(this)' oninput=\"this.setCustomValidity('')\" name='customer-id' style=' margin-bottom:3%;'> </lable>" + innerHtml;
+                document.getElementsByClassName("submit-button")[0].value = "جستجو";
+            });
+        }
+
+        if (event.target.value == "real") {
+            $("#search_form_wrapper").load("real-person-form.html", function () {
+                setSearchSubmitEvent(document.getElementById("real_form"), "real");
+                let innerHtml = document.getElementById("real_form").innerHTML;
+                document.getElementById("real_form").innerHTML = "<lable> شماره مشتری <input type='text'  pattern='[0-9]+' oninvalid='showCustomerIdAlert(this)' oninput=\"this.setCustomValidity('')\" name='customer-id' style=' margin-bottom:3%;'> </lable>" + innerHtml;
+                document.getElementsByClassName("submit-button")[0].value = "جستجو";
+            });
+        }
+    })
+}
+
+function setSearchSubmitEvent(formElement, searchDomain) {
+    const inputs = formElement.getElementsByTagName("input");
+    for (const input of inputs) {
+        input.removeAttribute("required");
+        if (input.name == "identity-number" || input.name == "economic-id") {
+            input.pattern = "[0-9]+";
+        }
+    }
+    formElement.addEventListener("submit", async function (event) {
+        let params = getFormParameters(formElement);
+        formElement.action = "../search?search-domain=" + searchDomain + "&" + params;
     })
 }

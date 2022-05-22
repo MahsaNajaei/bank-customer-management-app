@@ -1,13 +1,13 @@
-package ir.dotin.bank.cms.business.objects.values;
+package ir.dotin.bank.cms.business.dataobjects.values;
 
 import java.sql.Date;
 
-public class LegalCustomer extends BankCustomer {
+public class LegalCustomerVO extends BankCustomerVO {
     private Date registrationDate;
     private String companyName;
     private String economicId;
 
-    private LegalCustomer(long customerId, CustomerType customerType, Builder builder) {
+    private LegalCustomerVO(long customerId, CustomerType customerType, Builder builder) {
         super(customerId, customerType);
         registrationDate = builder.registrationDate;
         companyName = builder.companyName;
@@ -46,8 +46,8 @@ public class LegalCustomer extends BankCustomer {
             return this;
         }
 
-        public LegalCustomer build(long customerId, CustomerType customerType) {
-            return new LegalCustomer(customerId, customerType, this);
+        public LegalCustomerVO build(long customerId, CustomerType customerType) {
+            return new LegalCustomerVO(customerId, customerType, this);
         }
 
     }

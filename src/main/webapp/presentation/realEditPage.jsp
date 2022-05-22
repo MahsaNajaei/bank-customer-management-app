@@ -1,6 +1,6 @@
 <%@ page import="java.util.Calendar" %>
-<%@ page import="ir.dotin.bank.cms.business.objects.values.RealCustomer" %>
-<%@ page import="ir.dotin.bank.cms.business.objects.values.RealCustomer" %>
+<%@ page import="ir.dotin.bank.cms.business.dataobjects.values.RealCustomerVO" %>
+<%@ page import="ir.dotin.bank.cms.business.dataobjects.values.RealCustomerVO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@
 <body>
 
 <%
-    RealCustomer realCustomer = (RealCustomer) request.getAttribute("customer");
+    RealCustomerVO realCustomer = (RealCustomerVO) request.getAttribute("customer");
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(realCustomer.getBirthDate());
 %>

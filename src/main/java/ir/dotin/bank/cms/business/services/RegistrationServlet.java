@@ -1,11 +1,12 @@
 package ir.dotin.bank.cms.business.services;
 
+import ir.dotin.bank.cms.business.dataobjects.entities.BankCustomerEntity;
+import ir.dotin.bank.cms.business.dataobjects.values.BankCustomerVO;
 import ir.dotin.bank.cms.business.exceptions.DuplicatedEconomicIdException;
 import ir.dotin.bank.cms.business.exceptions.DuplicatedNationalCodeException;
-import ir.dotin.bank.cms.business.objects.entities.CustomerEntity;
-import ir.dotin.bank.cms.business.objects.values.BankCustomer;
-import ir.dotin.bank.cms.business.objects.values.CustomerType;
-import ir.dotin.bank.cms.business.tools.DataConversionHandler;
+import ir.dotin.bank.cms.business.exceptions.IllegalEconomicIdException;
+import ir.dotin.bank.cms.business.exceptions.IllegalNationalCodeException;
+import ir.dotin.bank.cms.business.tools.DataMapper;
 import ir.dotin.bank.cms.business.tools.UniqueIdGenerator;
 import ir.dotin.bank.cms.business.validations.CustomerValidator;
 import ir.dotin.bank.cms.dal.DefaultBankCustomerDAO;
@@ -35,23 +36,20 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            CustomerType customerType = extractCustomerType(request.getServletPath());
             long customerId = uniqueIdGenerator.generateNumberId();
+            DataMapper dataMapper = new DataMapper();
+            BankCustomerVO bankCustomerVO = null;
+            String servletPath = request.getServletPath();
 
-            DataConversionHandler dataConversionHandler = new DataConversionHandler();
-            BankCustomer bankCustomer = null;
-            if (customerType.equals(CustomerType.LEGAL))
-                bankCustomer = dataConversionHandler.getInitializedLegalCustomer(request, customerId);
-            else if (customerType.equals(CustomerType.REAL))
-                bankCustomer = dataConversionHandler.getInitializedRealCustomer(request, customerId);
+            if (servletPath.contains("legal"))
+                bankCustomerVO = dataMapper.mapRequestParamsToLegalCustomerVO(request, customerId);
+            else if (servletPath.contains("real"))
+                bankCustomerVO = dataMapper.mapRequestParamsToRealCustomerVO(request, customerId);
 
-            customerValidator.validateCustomer(bankCustomer);
-            CustomerEntity customerEntity = dataConversionHandler.convertBankCustomerToEntity(bankCustomer);
-            new DefaultBankCustomerDAO().addCustomer(customerEntity);
-            //Todo check these lenes
-            response.setContentType("text/plain");
+            customerValidator.checkValidationToRegister(bankCustomerVO);
+            BankCustomerEntity bankCustomerEntity = dataMapper.convertBankCustomerVOToEntity(bankCustomerVO);
+            new DefaultBankCustomerDAO().addCustomer(bankCustomerEntity);
             response.getWriter().println(customerId);
-            response.getWriter().flush();
 
         } catch (DuplicatedEconomicIdException e) {
             response.getWriter().println(e.getMessage());
@@ -60,15 +58,12 @@ public class RegistrationServlet extends HttpServlet {
         } catch (SQLException e) {
             response.getWriter().println("Sorry a problem has occurred in server. Please try again!");
             e.printStackTrace();
+        } catch (IllegalEconomicIdException e) {
+            response.getWriter().println(e.getMessage());
+            e.printStackTrace();
+        } catch (IllegalNationalCodeException e) {
+            response.getWriter().println(e.getMessage());
+            e.printStackTrace();
         }
     }
-
-    private CustomerType extractCustomerType(String servletPath) {
-        if (servletPath.contains("legal"))
-            return CustomerType.LEGAL;
-        if (servletPath.contains("real"))
-            return CustomerType.REAL;
-        return null;
-    }
-
 }

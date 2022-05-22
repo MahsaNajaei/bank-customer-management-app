@@ -1,14 +1,14 @@
-package ir.dotin.bank.cms.business.objects.entities;
+package ir.dotin.bank.cms.business.dataobjects.entities;
 
 import java.sql.Date;
 
-public class CustomerEntity {
+public class BankCustomerEntity {
     private String customerId;
     private String customerType;
     private String name;
     private String surname;
     private String parentName;
-    private Date date = Date.valueOf("");
+    private Date date;
     private String exclusiveId;
 
     public String getCustomerId() {

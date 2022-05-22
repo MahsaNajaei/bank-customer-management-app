@@ -10,16 +10,12 @@
 </head>
 <body>
 <div id="app_title"></div>
-<div id="legal_options_wrapper">
+<div id="content_wrapper">
 
     <a href="../index.html" class="return_home_button" style="">
         <img alt="صفحه ی اصلی" src="images/home-icon.png" title="بازگشت به صفحه ی اصلی"> </a>
 
-    <input type="radio" name="tabs" id="registration_tab" checked>
-    <label for="registration_tab"> تعریف مشتری جدید </label>
-
-    <input type="radio" name="tabs" id="search_tab">
-    <label for="search_tab"> جستجو </label>
+    <div id="form_title_wrapper"> تعریف مشتری جدید </div>
 
     <div id="registration_form_wrapper" class="form_content">
         <script>
@@ -27,27 +23,6 @@
                 postRealRegistrationRequestOnSubmit();
             })
         </script>
-    </div>
-
-    <div id="search_form_wrapper" class="form_content">
-        <form method="get" action="../real-search">
-
-            <content type="text"> جستجو بر اساس</content>
-
-            <select name="search-domain">
-                <option value="customerId"> شماره مشتری</option>
-                <option value="name"> نام</option>
-                <option value="surname"> نام خانوادگی</option>
-                <option value="nationalCode"> کد ملی</option>
-            </select>
-
-            <div id="search-bar">
-                <input type="text" name="search-content" required oninvalid="showNullAlert()"
-                       onchange="setCustomValidity('')">
-                <input type="image" src="images/search-icon.png">
-            </div>
-
-        </form>
     </div>
 
 </div>
