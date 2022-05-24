@@ -5,12 +5,10 @@ import ir.dotin.bank.cms.business.dataobjects.values.BankCustomerVO;
 import ir.dotin.bank.cms.business.dataobjects.values.CustomerType;
 import ir.dotin.bank.cms.business.dataobjects.values.LegalCustomerVO;
 import ir.dotin.bank.cms.business.dataobjects.values.RealCustomerVO;
-import ir.dotin.bank.cms.business.exceptions.DuplicatedEconomicIdException;
-import ir.dotin.bank.cms.business.exceptions.DuplicatedNationalCodeException;
-import ir.dotin.bank.cms.business.exceptions.IllegalEconomicIdException;
-import ir.dotin.bank.cms.business.exceptions.IllegalNationalCodeException;
+import ir.dotin.bank.cms.business.exceptions.*;
 import ir.dotin.bank.cms.business.tools.DataMapper;
 import ir.dotin.bank.cms.business.validations.CustomerValidator;
+import ir.dotin.bank.cms.business.validations.GeneralValidator;
 import ir.dotin.bank.cms.dal.DefaultBankCustomerDAO;
 import ir.dotin.bank.cms.dal.exceptions.CustomerIdDoesNotExistsException;
 import jakarta.servlet.ServletException;
@@ -29,6 +27,7 @@ public class UpdateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String customerId = request.getParameter("customer-id");
+            GeneralValidator.isNumeric(customerId);
             BankCustomerEntity bankCustomerEntity = new DefaultBankCustomerDAO().retrieveCustomerById(customerId);
             BankCustomerVO bankCustomerVO = new DataMapper().convertCustomerEntityToBankCustomerVO(bankCustomerEntity);
             request.setAttribute("customer", bankCustomerVO);
@@ -37,11 +36,14 @@ public class UpdateServlet extends HttpServlet {
             else if (bankCustomerVO.getCustomerType().equals(CustomerType.LEGAL))
                 request.getRequestDispatcher("/presentation/legalEditPage.jsp").include(request, response);
 
-        } catch (SQLException e) {
-            //TOdo send message to server
+        } catch (IllegalValueTypeException e) {
+            response.getWriter().println(e.getMessage() + "Customer id is not numeric!");
             e.printStackTrace();
         } catch (CustomerIdDoesNotExistsException e) {
-            //TOdo send message to server
+            response.getWriter().println(e.getMessage());
+            e.printStackTrace();
+        } catch (SQLException e) {
+            response.getWriter().println("Sorry, a problem has occurred in server! Please try later!");
             e.printStackTrace();
         }
     }
@@ -71,9 +73,6 @@ public class UpdateServlet extends HttpServlet {
         } catch (DuplicatedEconomicIdException e) {
             response.getWriter().println(e.getMessage());
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.getWriter().println("Sorry a problem has occurred in server. Please try again!");
         } catch (DuplicatedNationalCodeException e) {
             e.printStackTrace();
             response.getWriter().println(e.getMessage());
@@ -83,6 +82,9 @@ public class UpdateServlet extends HttpServlet {
         } catch (IllegalNationalCodeException e) {
             response.getWriter().println(e.getMessage());
             e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.getWriter().println("Sorry a problem has occurred in server. Please try again!");
         }
 
     }

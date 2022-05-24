@@ -12,6 +12,7 @@ import ir.dotin.bank.cms.dal.BankCustomerDao;
 import ir.dotin.bank.cms.dal.DefaultBankCustomerDAO;
 import org.apache.commons.lang3.StringUtils;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -67,6 +68,11 @@ public class CustomerValidator {
         String economicId = legalCustomer.getEconomicId();
         if (economicId == null || economicId.length() != 12 || !StringUtils.isNumeric(economicId))
             throw new IllegalEconomicIdException();
+        validateDate(legalCustomer.getRegistrationDate());
+    }
+
+    private void validateDate(Date date) {
+        //Todo
     }
 
     private boolean checkExclusiveIdUniqueness(String exclusiveId) throws SQLException {

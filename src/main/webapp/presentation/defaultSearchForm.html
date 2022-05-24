@@ -3,7 +3,7 @@
                        oninput="this.setCustomValidity('')"> </label>
     <label>
         تاریخ تولد یا تاریخ ثبت
-        <div class="date-wrapper">
+        <div class="date-wrapper" oninput="checkDateIntegrity()">
             <input type="text" name="day" placeholder="روز" maxlength="2" pattern="[1-9]|[1-2][0-9]|3[0-1]"
                    oninvalid="showDayInvalidAlert(this)" oninput="this.setCustomValidity('')">
             <input type="text" name="month" placeholder="ماه" maxlength="2" required pattern="((0)?[1-9]|1[0-2])"

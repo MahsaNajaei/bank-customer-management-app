@@ -38,6 +38,15 @@ function showCustomerIdAlert(input) {
     input.setCustomValidity("شماره مشتری از عدد تشکیل شده و حداکثر ده رقم است!");
 }
 
+function checkDateIntegrity() {
+    let dayElement = document.querySelector('.date-wrapper input[name="day"]');
+    let day = dayElement.value;
+    let month = document.querySelector('.date-wrapper input[name="month"]').value;
+    if (month > 6 && day == 31) {
+        dayElement.setCustomValidity("ام دارای 30 روز می باشد!" + month + "تاریخ نادرست است. ماه")
+    }
+}
+
 async function postLegalRegistrationRequestOnSubmit() {
     let formElement = document.getElementById("legal_form");
     formElement.addEventListener("submit", async function (event) {

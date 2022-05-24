@@ -38,7 +38,7 @@ public class searchServlet extends HttpServlet {
             req.setAttribute("real-customers", customerTypeToBankCustomerListMap.get(CustomerType.REAL));
             req.getRequestDispatcher("presentation/searchResultPage.jsp").forward(req, resp);
         } catch (SQLException e) {
-            //Todo send a message to user
+            resp.getWriter().println("Sorry, a problem has occurred in server! Please try later!");
             e.printStackTrace();
         }
     }
