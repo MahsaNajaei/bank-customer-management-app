@@ -1,6 +1,7 @@
 package ir.dotin.bank.cms.business.dataobjects.entities;
 
 import java.sql.Date;
+import java.util.List;
 
 public class BankCustomerEntity {
     private String customerId;
@@ -10,6 +11,7 @@ public class BankCustomerEntity {
     private String parentName;
     private Date date;
     private String exclusiveId;
+    private List<LoanTypeEntity> receivedLoans;
 
     public String getCustomerId() {
         return customerId;
@@ -65,5 +67,13 @@ public class BankCustomerEntity {
 
     public void setExclusiveId(String exclusiveId) {
         this.exclusiveId = exclusiveId;
+    }
+
+    public List<LoanTypeEntity> getReceivedLoans() {
+        return receivedLoans;
+    }
+
+    public void setReceivedLoans(List<LoanTypeEntity> receivedLoans) {
+        this.receivedLoans = receivedLoans;
     }
 }

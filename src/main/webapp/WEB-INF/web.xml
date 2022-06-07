@@ -20,6 +20,14 @@
         <servlet-name>deleteServlet</servlet-name>
         <servlet-class>ir.dotin.bank.cms.business.services.DeleteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loanTypeDefinerServlet</servlet-name>
+        <servlet-class>ir.dotin.bank.cms.business.services.LoanTypeDefinerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name> LoanProfileRegistrarServlet </servlet-name>
+        <servlet-class>ir.dotin.bank.cms.business.services.LoanProfileRegistrarServlet </servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>registrationServlet</servlet-name>
@@ -38,8 +46,19 @@
         <servlet-name>updateServlet</servlet-name>
         <url-pattern>/update</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loanTypeDefinerServlet</servlet-name>
+        <url-pattern>/get-submitted-conditions</url-pattern>
+        <url-pattern>/post-loan-type</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoanProfileRegistrarServlet</servlet-name>
+        <url-pattern>/get-loan-types</url-pattern>
+        <url-pattern>/get-customer-info</url-pattern>
+        <url-pattern>/register-loan-profile </url-pattern>
+    </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

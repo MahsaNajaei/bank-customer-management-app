@@ -1,24 +1,26 @@
 package ir.dotin.bank.cms.business.services;
 
 import ir.dotin.bank.cms.business.dataobjects.entities.BankCustomerEntity;
-import ir.dotin.bank.cms.business.dataobjects.values.BankCustomerVO;
-import ir.dotin.bank.cms.business.dataobjects.values.CustomerType;
-import ir.dotin.bank.cms.business.dataobjects.values.LegalCustomerVO;
-import ir.dotin.bank.cms.business.dataobjects.values.RealCustomerVO;
+import ir.dotin.bank.cms.business.dataobjects.values.customers.BankCustomerVo;
+import ir.dotin.bank.cms.business.dataobjects.values.customers.CustomerType;
+import ir.dotin.bank.cms.business.dataobjects.values.customers.LegalCustomerVo;
+import ir.dotin.bank.cms.business.dataobjects.values.customers.RealCustomerVo;
 import ir.dotin.bank.cms.business.exceptions.*;
-import ir.dotin.bank.cms.business.tools.DataMapper;
-import ir.dotin.bank.cms.business.validations.CustomerValidator;
-import ir.dotin.bank.cms.business.validations.GeneralValidator;
-import ir.dotin.bank.cms.dal.DefaultBankCustomerDAO;
-import ir.dotin.bank.cms.dal.exceptions.CustomerIdDoesNotExistsException;
+import ir.dotin.bank.cms.business.tools.CustomHttpStatusCode;
+import ir.dotin.bank.cms.business.tools.CustomerDataMapper;
+import ir.dotin.bank.cms.business.tools.DataExtractor;
+import ir.dotin.bank.cms.business.validatiors.CustomerValidator;
+import ir.dotin.bank.cms.business.validatiors.GeneralValidator;
+import ir.dotin.bank.cms.dal.daos.implementations.hibernate.DefaultBankCustomerDao;
+import ir.dotin.bank.cms.dal.exceptions.CustomerNotFoundException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet(name = "updateServlet")
 public class UpdateServlet extends HttpServlet {
@@ -27,9 +29,9 @@ public class UpdateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String customerId = request.getParameter("customer-id");
-            GeneralValidator.isNumeric(customerId);
-            BankCustomerEntity bankCustomerEntity = new DefaultBankCustomerDAO().retrieveCustomerById(customerId);
-            BankCustomerVO bankCustomerVO = new DataMapper().convertCustomerEntityToBankCustomerVO(bankCustomerEntity);
+            GeneralValidator.checkNumericValueIntegrity(customerId);
+            BankCustomerEntity bankCustomerEntity = new DefaultBankCustomerDao().retrieveCustomerById(customerId);
+            BankCustomerVo bankCustomerVO = new CustomerDataMapper().mapCustomerEntityToBankCustomerVO(bankCustomerEntity);
             request.setAttribute("customer", bankCustomerVO);
             if (bankCustomerVO.getCustomerType().equals(CustomerType.REAL))
                 request.getRequestDispatcher("/presentation/realEditPage.jsp").include(request, response);
@@ -39,10 +41,12 @@ public class UpdateServlet extends HttpServlet {
         } catch (IllegalValueTypeException e) {
             response.getWriter().println(e.getMessage() + "Customer id is not numeric!");
             e.printStackTrace();
-        } catch (CustomerIdDoesNotExistsException e) {
+        } catch (CustomerNotFoundException e) {
+            response.setStatus(CustomHttpStatusCode.CUSTOMER_NOT_FOUND);
             response.getWriter().println(e.getMessage());
             e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            response.setStatus(CustomHttpStatusCode.INTERNAL_SERVER_ERROR);
             response.getWriter().println("Sorry, a problem has occurred in server! Please try later!");
             e.printStackTrace();
         }
@@ -53,21 +57,21 @@ public class UpdateServlet extends HttpServlet {
 
         long customerId = Long.parseLong(request.getParameter("customer-id"));
         CustomerType customerType = CustomerType.valueOf(request.getParameter("customer-type").toUpperCase());
-        DataMapper dataMapper = new DataMapper();
+        DataExtractor dataExtractor = new DataExtractor();
         CustomerValidator customerValidator = new CustomerValidator();
 
         try {
-            BankCustomerVO updatedCustomerVo = null;
+            BankCustomerVo updatedCustomerVo = null;
             if (CustomerType.LEGAL == customerType) {
-                updatedCustomerVo = dataMapper.mapRequestParamsToLegalCustomerVO(request, customerId);
-                customerValidator.validateLegalCustomerForUpdate((LegalCustomerVO) updatedCustomerVo);
+                updatedCustomerVo = dataExtractor.extractLegalCustomerVOFromRequestParams(request, customerId);
+                customerValidator.validateLegalCustomerForUpdate((LegalCustomerVo) updatedCustomerVo);
 
             } else if (CustomerType.REAL == customerType) {
-                updatedCustomerVo = dataMapper.mapRequestParamsToRealCustomerVO(request, customerId);
-                customerValidator.validateRealCustomerForUpdate((RealCustomerVO) updatedCustomerVo);
+                updatedCustomerVo = dataExtractor.extractRealCustomerVoFromRequestParams(request, customerId);
+                customerValidator.validateRealCustomerForUpdate((RealCustomerVo) updatedCustomerVo);
             }
-            BankCustomerEntity updatedBankCustomerEntity = dataMapper.convertBankCustomerVOToEntity(updatedCustomerVo);
-            new DefaultBankCustomerDAO().updateCustomer(updatedBankCustomerEntity);
+            BankCustomerEntity updatedBankCustomerEntity = new CustomerDataMapper().mapBankCustomerVOToEntity(updatedCustomerVo);
+            new DefaultBankCustomerDao().updateCustomer(updatedBankCustomerEntity);
             response.getWriter().println("update succeeded!");
 
         } catch (DuplicatedEconomicIdException e) {
@@ -76,13 +80,13 @@ public class UpdateServlet extends HttpServlet {
         } catch (DuplicatedNationalCodeException e) {
             e.printStackTrace();
             response.getWriter().println(e.getMessage());
-        } catch (IllegalEconomicIdException e) {
+        } catch (InvalidEconomicIdException e) {
             response.getWriter().println(e.getMessage());
             e.printStackTrace();
-        } catch (IllegalNationalCodeException e) {
+        } catch (InvalidNationalCodeException e) {
             response.getWriter().println(e.getMessage());
             e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             response.getWriter().println("Sorry a problem has occurred in server. Please try again!");
         }

@@ -12,17 +12,17 @@ html {
 body {
     background: url("images/background.jpg") fixed center/cover no-repeat;
     text-align: center;
-    color: #75BBDA;
+    color: #7193af;
     font-family: Fantasy;
+    font-family: Myriad Arabic;
 }
 
-#app_title::before {
+#app-title {
     width: 30%;
     font-size: xx-large;
-    margin-top: 5%;
-    margin-bottom: 3%;
+    margin: 5% 3% 3%;
     font-weight: bold;
-    content: "سامانه مدیریت مشتریان بانک ";
+    content: "سامانه مدیریت امور بانکی ";
     color: azure;
     display: inline-block;
     text-shadow: 0 5px 10px #123042;
@@ -34,7 +34,7 @@ input {
     border: none;
     outline: none;
     max-width: 100%;
-    color: #5488b2;
+    color: #7193af;
     text-align: center;
     font-size: medium;
     margin-top: 1%;
@@ -44,29 +44,31 @@ input {
     min-width: 50%;
 }
 
-input:focus{
+input:focus {
     border: 1px solid #b9d7fa;
+    border: 2px solid #b0c7d7;
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    /*-webkit-box-shadow: 0 0 0 30px white inset !important;*/
+    -webkit-box-shadow: 0 0 0 30px white inset;
     -webkit-text-fill-color: steelblue;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #89CAE2;
+    color: #a2bcdc;
     opacity: 1; /* Firefox */
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #89CAE2;
+    color: #a2bcdc;
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
-    color: #89CAE2;
+    color: #a2bcdc;
 }
 
 a {
@@ -75,7 +77,7 @@ a {
 }
 
 #content_wrapper {
-    background: aliceblue;
+    background-color: #f6f8f9;
     width: 34%;
     padding: 2% 2% 1%;
     margin-right: auto;
@@ -84,6 +86,40 @@ a {
     box-shadow: rgb(38, 57, 77) 0 20px 30px -10px;
 }
 
+#popup-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 400px;
+    box-shadow: 0 0 7px #206a94, rgb(38, 57, 77) 0 20px 30px -10px, 0 0 10px 6px #22394b;
+    background: #f6f8f9;
+    padding-bottom: 2%;
+}
+
+#popup-title {
+    width: 100%;
+    background: #22394b;
+    line-height: 50px;
+    font-weight: bold;
+    font-size: x-large;
+    color: white;
+    margin-bottom: 7%;
+    box-shadow: 0 0px 7px #206a94;
+}
+
+#popup-message {
+    color: #101e28;
+    font-size: 1.15rem;
+    padding: 0 2%;
+    line-height: 1.15rem;
+    margin: auto 7% 3%;
+}
+
+#popup-message + button {
+    box-shadow: 0 0px 7px 1px #206a94;
+}
 
 /* form css */
 .form_wrapper {
@@ -107,12 +143,14 @@ a {
     min-width: 24%;
     margin-top: 4%;
     cursor: pointer;
-    background: #6eb9e7;
+    background: #22394b;
     font-size: large;
     color: #ffffff;
     padding: 5px;
+    border: 1px solid #3b556a;
     box-shadow: rgb(95, 151, 196) 0 3px 15px inset;
 }
+
 .submit-button:hover {
     box-shadow: rgb(63, 94, 122) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 0 10px, rgba(0, 0, 0, .1) 0 5px 13px;
     transform: scale(1);
@@ -144,74 +182,132 @@ a {
     float: right;
     font-size: large;
     font-weight: bold;
-    color: #75BBDA;
-    border: 1px solid lightblue;
+    color: #22394b;
+    border: 1px solid #91b1da;
     border-top: 2px solid orange;
-    border-bottom: 1px solid aliceblue;
+    border-bottom: 1px solid #f6f8f9;
     padding: 2%;
 }
 
 .form_content {
-    display: none;
-    border-top: 1px solid #89CAE2;
+    clear: both;
+    border-top: 1px solid #91b1da;
     padding-top: 6%;
-}
-
-#registration_form_wrapper {
-    display: inline-block;
-    width: 100%;
     margin-top: -1px;
 }
 
 /* home page css */
-#home_page_title {
-    width: 60%;
-    margin-right: auto;
+#home_content_wrapper {
+    width: 50%;
     margin-left: auto;
-    color: #def4fd;
-    font-family: "JetBrains Mono ExtraBold";
-    font-size: xxx-large;
-    margin-top: 10%;
-    text-shadow: 0 5px 10px #123042;
+    margin-right: auto;
+    background-color: white;
+}
+
+#home_header {
+    width: 100%;
+}
+
+#home_header img {
+    width: 100%;
+    margin-bottom: -3px;
+}
+
+#home_page_title {
+    background-color: #192935;
+    color: #c7e0ef;
+    padding: 12px 0;
+    margin-top: -3px;
+    /*!*font-family: Myriad Arabic;*!*/
+    /*font-family: "JetBrains Mono ExtraBold";*/
+    text-shadow: 0 3px 20px #b3c4ce;
 }
 
 #home_options_wrapper {
-    font-size: small;
-    margin-top: 4%;
-    width: 60%;
-    height: 28%;
-    position: fixed;
-    transform: translateX(-33.33%);
+    width: 92%;
+    margin: 5% auto;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .home_option {
-    box-shadow: 7px 13px 6px rgba(58, 100, 140, 0.71), 7px 13px 6px rgba(33, 68, 128, 0.52);
-    background: #eff3f6;
-    float: left;
-    width: 33.33%;
-    text-align: center;
-    margin: 1%;
-    border-radius: 10%;
+    width: 25%;
+    height: 100%;
 }
 
 .home_option img {
-    background-color: #d6f1ff;
-    background-color: #cce5f8;
-    width: 30%;
-    padding: 2%;
-    min-width: 50px;
-    margin-top: 10%;
-    border-radius: 50%;
+    width: 58px;
+    display: inline-block;
+    margin-bottom: 3%;
 }
 
-.home_option h1 {
-    height: 100%;
+.home_option a {
+    color: #465157;
+}
+
+#home_footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #446983;
+    margin-bottom: 0;
+    height: 140px;
     width: 100%;
-    margin-top: 3%;
-    color: #77a6cb;
-    font-size: x-large;
-    font-weight: normal;
+}
+
+#home_footer img {
+    width: 10%;
+    min-width: 60px;
+}
+
+/* customer registration */
+#customer-registration-wrapper {
+    width: 70%;
+    background: url("images/background.jpg");
+    margin-right: auto;
+    margin-left: auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#registration-options-wrapper {
+    background: #b0dff7;
+    border: 4px solid #7d8386;
+    border: 4px solid #466077;
+    box-shadow: #22394b 10px 10px 30px;
+    border-radius: 25px;
+    font-size: small;
+    margin-top: 2%;
+    width: 70%;
+}
+
+#registration-options-wrapper > div {
+    float: left;
+    width: 33.3%;
+}
+
+#registration-options-wrapper h1 {
+    margin-top: 50%;
+    transform: translateY(-50%);
+    line-height: 100%;
+    color: #28658d;
+    text-shadow: white 2px 2px 6px;
+}
+
+#registration-options-wrapper h1:hover {
+    color: white;
+    text-shadow: #2c4a64 2px 2px 5px;
+}
+
+#registration-options-wrapper img {
+    width: 100%;
+    border: 2px solid #466077;
+    border-radius: 50%;
+
 }
 
 /* search page css */
@@ -235,7 +331,7 @@ a {
     border-radius: 25px;
     border: none;
     font-size: 15px;
-    color: #75BBDA;
+    color: #748eaf;
     outline: none;
     padding: 1%;
 }
@@ -284,12 +380,15 @@ a > img {
     padding: 0;
 }
 
-th, td:nth-last-child(2) {
-    border: 1px solid #75BBDA;
+th, td:nth-last-child(1), td:nth-last-child(2) {
+    border: 1px solid #b7dbf1;
 }
 
 tr:nth-child(even) {
-    background: #b7dcf2;
+    /*background: #d1e3fa;*/
+    background: #e6edef;
+    background: #cee2ea;
+    background: #d2e1e7;
 }
 
 /* edit page css */
@@ -321,4 +420,326 @@ tr:nth-child(even) {
     transform: translateY(25%);
 }
 
+/* loan definition */
+#loan-box-wrapper {
+    background-color: #192936;
+    width: 70%;
+    height: 100vh;
+    min-height: 400px;
+    margin: 0 auto;
+    position: relative;
+}
 
+#loan-definition-bg, #loan-definition-content-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#loan-definition-bg {
+    width: 100%;
+    min-height: 320px;
+}
+
+#loan-definition-content-wrapper {
+    min-width: 30%;
+}
+
+#loan-definition-content-wrapper h1 {
+    color: white;
+    background: #2c4a64;
+    padding: 2%;
+    margin-bottom: 16%;
+}
+
+#loan-definition-content-wrapper input:-webkit-autofill,
+#loan-definition-content-wrapper input:-webkit-autofill:hover,
+#loan-definition-content-wrapper input:-webkit-autofill:focus,
+#loan-definition-content-wrapper input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgba(6, 59, 97, 0.7) inset;
+    -webkit-text-fill-color: white;
+}
+
+#loan-definition-content-wrapper input {
+    font-size: large;
+    margin-bottom: 8%;
+    border-radius: unset;
+    min-width: 20%;
+    padding: 4%;
+    border: 1px solid white;
+    background-color: rgba(6, 59, 97, 0.58);
+    color: white;
+}
+
+/*loan-definition-content-wrapper input:-webkit-autofill,*/
+/*loan-definition-content-wrapper input:-webkit-autofill:hover,*/
+/*loan-definition-content-wrapper input:-webkit-autofill:focus,*/
+/*loan-definition-content-wrapper input:-webkit-autofill:active {*/
+/*    */
+/*    !*-webkit-box-shadow: 0 0 0 30px white inset !important;*!*/
+/*    !*-webkit-text-fill-color: steelblue;*!*/
+/*}*/
+
+#loan-definition-content-wrapper input::placeholder {
+    color: white;
+}
+
+#loan-definition-content-wrapper input[type="submit"] {
+    font-weight: bold;
+    color: #073c64;
+    background-color: white;
+    min-width: 35%;
+    cursor: pointer;
+    padding: 2%;
+    margin-top: 18%;
+    margin-bottom: 0;
+}
+
+/*#loan-definition-content-wrapper input[type="submit"]:hover
+
+
+
+/* loan conditions definition*/
+#loan-box-wrapper div * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loan-conditions-header, #curved-footer {
+    position: relative;
+}
+
+#loan-conditions-header h1 {
+    position: absolute;
+    top: 50%;
+    right: 25%;
+    transform: translate(50%, -50%);
+    color: white;
+    font-size: 3.2vmax;
+}
+
+#loan-conditions-header img, #loan-request-header img {
+    width: 100%;
+}
+
+#conditions-form-wrapper {
+    background-color: #ddebf6;
+    padding: 4% 0;
+    margin-top: -4px;
+}
+
+#conditions-form-wrapper form {
+    width: 35%;
+}
+
+#conditions-form-wrapper input {
+    max-width: 210px;
+    min-width: 100px;
+}
+
+#conditions-form-wrapper p {
+    width: 35%;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #22394b;
+    border-bottom: 1px dashed #7d8386;
+    padding-bottom: 2%;
+    margin-bottom: 3%;
+    text-align: justify;
+}
+
+#conditions-form-wrapper input {
+    padding: 2%;
+}
+
+#conditions-form-wrapper input[type="text"] {
+    border-radius: unset;
+    color: #7d8386;
+    margin-bottom: 3%;
+    text-align: right;
+    width: 75%;
+}
+
+#conditions-form-wrapper input[type="text"]::placeholder {
+    color: #7d8386;
+}
+
+.dark-blue-submit-button, .rectangle-blue-button {
+    max-width: 30%;
+    min-width: 10%;
+    background-color: #22394b;
+    color: white;
+    font-size: large;
+    cursor: pointer;
+    margin-top: 8%;
+    box-shadow: rgb(63, 94, 122) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 0 10px, rgba(0, 0, 0, .1) 0 5px 13px;
+    border: 2px solid #1f1f1f;
+}
+
+.dark-blue-submit-button:hover, .rectangle-blue-button:hover {
+    box-shadow: unset;
+}
+
+#conditions-display-wrapper {
+    padding: 5% 3% 13%;
+    background-color: #f6f8f9;
+}
+
+#conditions-display-wrapper table {
+    color: white;
+    overflow: auto;
+    border-spacing: 0 4px;
+}
+
+#conditions-display-wrapper table * {
+    padding: 1% 1%;
+}
+
+#conditions-display-wrapper th {
+    padding: 1%;
+    width: 10.5vw;
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+
+#conditions-display-wrapper td {
+    padding: 1%;
+    width: 10.5vw;
+    border: none;
+}
+
+#conditions-display-wrapper tr:nth-child(even) {
+    background: white;
+    color: #5f80ab;
+    outline: 1px solid #7193af;
+    outline-offset: -1px;
+}
+
+#conditions-display-wrapper tr:nth-child(odd) {
+    background: #22394b;
+}
+
+
+#conditions-display-wrapper p {
+    margin: 2%;
+    text-align: center;
+    color: #22394b;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.rectangle-blue-button {
+    padding: 0.6% 1%;
+    border-radius: 5px;
+    width: 130px;
+    margin-top: 2.5%;
+}
+
+#curved-footer img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#curved-footer img:first-child {
+    width: 100%;
+}
+
+#curved-footer img:nth-child(2) {
+    margin-top: 4%;
+    width: 6vw;
+}
+
+/* loan request */
+#loan-request-wrapper {
+    background-color: #192936;
+    background-color: #294459;
+    display: inline-block;
+    position: fixed;
+    width: 70vw;
+    min-width: 700px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#loan-request-wrapper * {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#loan-request-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #294459;
+    background-color: rgba(255, 255, 2555, 0.7);
+    height: 100px;
+    width: 60%;
+    transform: translateY(-104%);
+}
+
+#loan-request-form-wrapper {
+    margin-top: -120px;
+    background: #f5f5fb;
+    padding: 6% 0 4%;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 6%;
+
+}
+
+#loan-request-form-wrapper form {
+    float: right;
+}
+
+#loan-request-form-wrapper input {
+    border-radius: unset;
+    padding: 2%;
+    margin-bottom: 7%;
+    width: 60%;
+}
+
+#loan-request-form-wrapper input[type="submit"] {
+    border-radius: 25px;
+    font-size: medium;
+    border: none;
+    /*margin-bottom: 12%;*/
+}
+
+#loan-request-form-wrapper input::placeholder {
+    color: #5f80ab;
+}
+
+#loan-request-form-wrapper form:nth-child(1) {
+    width: 40%;
+}
+
+#loan-request-form-wrapper form:nth-child(2) {
+    width: 60%;
+    border-right: 2px dashed #294459;
+}
+
+#loan-request-form-wrapper select {
+    padding: 2%;
+    margin-bottom: 7%;
+    width: 60%;
+    text-align: center;
+    font-size: medium;
+    color: #5f80ab;
+    border: unset;
+    outline: none;
+}
+
+.simple-line-input {
+    background: none;
+    border-bottom: 1px solid #294459;
+}
+
+.simple-line-input:focus {
+    border: none;
+    border-bottom: 1px solid #294459;
+}

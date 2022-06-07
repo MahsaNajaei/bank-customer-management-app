@@ -1,0 +1,23 @@
+<form class="form_wrapper" id="real_form" method="post" accept-charset="UTF-8" oninvalid="this.preventDefault();">
+    <label> نام <input type="text" name="customer-name" maxlength="20" required oninput="this.setCustomValidity('')"
+                       oninvalid="showNullAlert(this)"> </label>
+    <label> نام خانوادگی<input type="text" name="surname" maxlength="25" required oninput="this.setCustomValidity('')"
+                               oninvalid="showNullAlert(this)"> </label>
+    <label>
+        تاریخ تولد
+        <div class="date-wrapper" oninput="checkDateIntegrity()">
+            <input type="text" name="day" placeholder="روز" maxlength="2" pattern="[1-9]|[1-2][0-9]|3[0-1]" required
+                   oninvalid="showDayInvalidAlert(this)" oninput="this.setCustomValidity('')">
+            <input type="text" name="month" placeholder="ماه" maxlength="2" required pattern="((0)?[1-9]|1[0-2])"
+                   oninvalid="showMonthInvalidAlert(this)" oninput="this.setCustomValidity('') "
+                   style="border-radius: 0;">
+            <input type="text" name="year" placeholder="سال" maxlength="4" required pattern="1[2-3][0-9]{2}|140[0-1]"
+                   oninvalid="showYearInvalidAlert(this)" oninput="this.setCustomValidity('')">
+        </div>
+    </label>
+
+<label> نام پدر<input type="text" name="fathers-name" maxlength="20" required oninput="this.setCustomValidity('')"
+                      oninvalid="showNullAlert(this)"></label>
+<label> کد ملی <input type="text" name="identity-number" maxlength="10" required oninput="this.setCustomValidity('')"> </label>
+<input class="submit-button" id="registration_submit" type="submit" value="ثبت" onclick="checkNationalCodeIntegrity()">
+</form>

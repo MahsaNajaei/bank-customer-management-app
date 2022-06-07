@@ -1,9 +1,7 @@
-<%@ page import="ir.dotin.bank.cms.business.dataobjects.values.BankCustomerVO" %>
-<%@ page import="ir.dotin.bank.cms.business.dataobjects.values.LegalCustomerVO" %>
-<%@ page import="ir.dotin.bank.cms.business.dataobjects.values.RealCustomerVO" %>
+<%@ page import="ir.dotin.bank.cms.business.dataobjects.values.customers.BankCustomerVo" %>
+<%@ page import="ir.dotin.bank.cms.business.dataobjects.values.customers.LegalCustomerVo" %>
+<%@ page import="ir.dotin.bank.cms.business.dataobjects.values.customers.RealCustomerVo" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Enumeration" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html dir="rtl" lang="fa_IR">
@@ -15,12 +13,12 @@
 
 </head>
 <body>
-<div id="app_title"></div>
+<div id="app-title"> سامانه مدیریت امور بانکی </div>
 <div id="result_table_wrapper">
     <%
         String searchQueryRequest = request.getQueryString();
-        List<BankCustomerVO> legalCustomers = (List<BankCustomerVO>) request.getAttribute("legal-customers");
-        List<BankCustomerVO> realCustomers = (List<BankCustomerVO>) request.getAttribute("real-customers");
+        List<BankCustomerVo> legalCustomers = (List<BankCustomerVo>) request.getAttribute("legal-customers");
+        List<BankCustomerVo> realCustomers = (List<BankCustomerVo>) request.getAttribute("real-customers");
 
         if (legalCustomers != null) {
     %>
@@ -34,8 +32,8 @@
             <th colspan="2"><img src="presentation/images/settings-icon.png"></th>
         </tr>
         <%
-            for (BankCustomerVO bankCustomer : legalCustomers) {
-                LegalCustomerVO legalCustomer = (LegalCustomerVO) bankCustomer;
+            for (BankCustomerVo bankCustomer : legalCustomers) {
+                LegalCustomerVo legalCustomer = (LegalCustomerVo) bankCustomer;
         %>
         <tr>
             <td>
@@ -77,8 +75,8 @@
             <th colspan="2"><img src="presentation/images/settings-icon.png"></th>
         </tr>
         <%
-            for (BankCustomerVO bankCustomer : realCustomers) {
-                RealCustomerVO realCustomerVO = (RealCustomerVO) bankCustomer;
+            for (BankCustomerVo bankCustomer : realCustomers) {
+                RealCustomerVo realCustomerVO = (RealCustomerVo) bankCustomer;
         %>
         <tr>
             <td>
@@ -117,7 +115,7 @@
 
 </div>
 
-<a href="index.html" class="return_home_button" style="  width: 100%; display: inline-block; margin-top: 1%;">
+<a href="index.jsp" class="return_home_button" style="  width: 100%; display: inline-block; margin-top: 1%;">
     <img alt="صفحه ی اصلی" src="presentation/images/home-icon-white.png" title="بازگشت به صفحه ی اصلی"> </a>
 </body>
 </html>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="ir.dotin.bank.cms.business.dataobjects.entities.BankCustomerEntity" table="BANK_CUSTOMERS" dynamic-update="true">
+        <id name="customerId" column="CUSTOMER_ID"/>
+        <property name="customerType" column="CUSTOMER_TYPE" not-null="true"/>
+        <property name="name" column="NAME" not-null="true"/>
+        <property name="surname" column="SURNAME" />
+        <property name="parentName" column="PARENT_NAME"/>
+        <property name="date" column="DATE" not-null="true"/>
+        <property name="exclusiveId" column="EXCLUSIVE_ID" not-null="true"/>
+        <bag name="receivedLoans" table="LOAN_PROFILES">
+            <key column="CUSTOMER_ID" not-null="true"/>
+            <many-to-many class="ir.dotin.bank.cms.business.dataobjects.entities.LoanTypeEntity" column="LOAN_ID" />
+        </bag>
+    </class>
+</hibernate-mapping>
