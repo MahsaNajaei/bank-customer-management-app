@@ -5,6 +5,7 @@ import ir.dotin.bank.cms.business.dataobjects.entities.LoanTypeEntity;
 import ir.dotin.bank.cms.business.dataobjects.values.customers.BankCustomerVo;
 import ir.dotin.bank.cms.business.exceptions.IllegalValueTypeException;
 import ir.dotin.bank.cms.business.exceptions.InvalidNationalCodeException;
+import ir.dotin.bank.cms.business.exceptions.NoResultFoundException;
 import ir.dotin.bank.cms.business.exceptions.NullValueException;
 import ir.dotin.bank.cms.business.tools.CustomHttpStatusCode;
 import ir.dotin.bank.cms.business.tools.CustomerDataMapper;
@@ -105,7 +106,11 @@ public class LoanProfileRegistrarServlet extends HttpServlet {
             response.getWriter().println("خطا! \n پر کردن فیلدهای کد ملی، مبلغ قرارداد و مدت قرار داد اجباری است!");
             response.setStatus(CustomHttpStatusCode.NULL_VALUE);
             e.printStackTrace();
-            ;
+        } catch (NoResultFoundException e) {
+            response.getWriter().println("در حا حاضر مشتری انتخابی در حال بهرمندی از این نوع تسهیلات است و امکان درخواست دوباره وجود ندارد!");
+            response.setStatus(CustomHttpStatusCode.DUPLICATED_LOAN_REQUEST);
+            logger.error("Client has already received the loan!");
+            e.printStackTrace();
         }
     }
 }

@@ -2,6 +2,7 @@ package ir.dotin.bank.cms.dal.daos.implementations.hibernate;
 
 import ir.dotin.bank.cms.business.dataobjects.entities.BankCustomerEntity;
 import ir.dotin.bank.cms.business.dataobjects.entities.LoanTypeEntity;
+import ir.dotin.bank.cms.business.exceptions.NoResultFoundException;
 import ir.dotin.bank.cms.dal.daos.interfaces.BankCustomerDao;
 import ir.dotin.bank.cms.dal.exceptions.CustomerNotFoundException;
 import org.apache.logging.log4j.LogManager;
@@ -94,7 +95,7 @@ public class DefaultBankCustomerDao implements BankCustomerDao {
     }
 
     @Override
-    public void updateCustomerLoans(String customerId, LoanTypeEntity loanType) {
+    public void updateCustomerLoans(String customerId, LoanTypeEntity loanType) throws NoResultFoundException {
         Session session = SingleSessionFactory.getInstance().openSession();
         session.beginTransaction();
         Query query = session.createQuery("from BankCustomerEntity customer where customer.customerId = :customerId and :loan not member of customer.receivedLoans");
@@ -107,6 +108,7 @@ public class DefaultBankCustomerDao implements BankCustomerDao {
             session.close();
         } catch (NoResultException e) {
             logger.error("No result found for customer with id[" + customerId + "] that has not registered loanType[" + loanType.getName() + "] yet! \n" + e);
+            throw new NoResultFoundException();
         }
     }
 
