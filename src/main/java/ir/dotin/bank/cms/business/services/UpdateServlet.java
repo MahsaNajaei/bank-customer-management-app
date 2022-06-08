@@ -9,8 +9,8 @@ import ir.dotin.bank.cms.business.exceptions.*;
 import ir.dotin.bank.cms.business.tools.CustomHttpStatusCode;
 import ir.dotin.bank.cms.business.tools.CustomerDataMapper;
 import ir.dotin.bank.cms.business.tools.DataExtractor;
-import ir.dotin.bank.cms.business.validatiors.CustomerValidator;
-import ir.dotin.bank.cms.business.validatiors.GeneralValidator;
+import ir.dotin.bank.cms.business.validators.CustomerValidator;
+import ir.dotin.bank.cms.business.validators.GeneralValidator;
 import ir.dotin.bank.cms.dal.daos.implementations.hibernate.DefaultBankCustomerDao;
 import ir.dotin.bank.cms.dal.exceptions.CustomerNotFoundException;
 import jakarta.servlet.ServletException;
@@ -18,12 +18,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 
 @WebServlet(name = "updateServlet")
 public class UpdateServlet extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger(UpdateServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,17 +39,19 @@ public class UpdateServlet extends HttpServlet {
                 request.getRequestDispatcher("/presentation/realEditPage.jsp").include(request, response);
             else if (bankCustomerVO.getCustomerType().equals(CustomerType.LEGAL))
                 request.getRequestDispatcher("/presentation/legalEditPage.jsp").include(request, response);
-
+            logger.info("The information of requested customer has been sent successfully to the client! [customerId: " + customerId + "]");
         } catch (IllegalValueTypeException e) {
+            logger.error("Customer id is not numeric!");
             response.getWriter().println(e.getMessage() + "Customer id is not numeric!");
             e.printStackTrace();
         } catch (CustomerNotFoundException e) {
+            logger.error("Customer with [Id: " + request.getParameter("customer-id") + "] is not found!");
             response.setStatus(CustomHttpStatusCode.CUSTOMER_NOT_FOUND);
             response.getWriter().println(e.getMessage());
             e.printStackTrace();
-        } catch (Exception e) {
-            response.setStatus(CustomHttpStatusCode.INTERNAL_SERVER_ERROR);
-            response.getWriter().println("Sorry, a problem has occurred in server! Please try later!");
+        } catch (NullValueException e) {
+            logger.error("Customer id is null!");
+            response.setStatus(CustomHttpStatusCode.NULL_VALUE);
             e.printStackTrace();
         }
     }
@@ -72,23 +76,28 @@ public class UpdateServlet extends HttpServlet {
             }
             BankCustomerEntity updatedBankCustomerEntity = new CustomerDataMapper().mapBankCustomerVOToEntity(updatedCustomerVo);
             new DefaultBankCustomerDao().updateCustomer(updatedBankCustomerEntity);
-            response.getWriter().println("update succeeded!");
-
+            response.getWriter().println("ویرایش با موفقیت انجام شد!");
+            logger.info("Update successfully for customer info with id['" + customerId + "']");
         } catch (DuplicatedEconomicIdException e) {
+            logger.warn("Duplicated economic id has been entered!");
+            response.setStatus(CustomHttpStatusCode.DUPLICATED_ECONOMIC_ID);
             response.getWriter().println(e.getMessage());
             e.printStackTrace();
         } catch (DuplicatedNationalCodeException e) {
+            logger.warn("Duplicated national code has been entered!");
+            response.setStatus(CustomHttpStatusCode.DUPLICATED_NATIONAL_CODE);
             e.printStackTrace();
             response.getWriter().println(e.getMessage());
         } catch (InvalidEconomicIdException e) {
+            logger.warn("Economic Id is invalid!");
+            response.setStatus(CustomHttpStatusCode.INVALID_ECONOMIC_ID);
             response.getWriter().println(e.getMessage());
             e.printStackTrace();
         } catch (InvalidNationalCodeException e) {
+            logger.warn("National code is invalid!");
+            response.setStatus(CustomHttpStatusCode.INVALID_NATIONAL_CODE);
             response.getWriter().println(e.getMessage());
             e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.getWriter().println("Sorry a problem has occurred in server. Please try again!");
         }
 
     }

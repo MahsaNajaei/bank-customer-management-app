@@ -14,8 +14,9 @@
     <script type="text/javascript" src="presentation/validation.js"></script>
 </head>
 
-<body>
-<div id="app-title"> سامانه مدیریت امور بانکی </div>
+<body style=" background: url('presentation/images/background.jpg') fixed center / cover no-repeat;">
+
+<div id="app-title"> سامانه مدیریت امور بانکی</div>
 <div id="edit_form_wrapper">
     <span id="edit_image"> </span>
     <span id="edit_form" style="transform: translateY(18%);">
@@ -40,9 +41,10 @@
 
     </span>
 </div>
-
+<div id="popup"></div>
 <a href="index.jsp" class="return_home_button" style="  width: 100%; display: inline-block; margin-top: 2%; ">
     <img alt="صفحه ی اصلی" src="presentation/images/home-icon-white.png" title="بازگشت به صفحه ی اصلی">
 </a>
+
 </body>
 </html>

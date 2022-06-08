@@ -6,7 +6,13 @@
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('../legal-register', fetchSettings);
         let message = await response.text();
-        alert(message);
+        // alert(message);
+        $("#popup").load("reusableHTMLCodes/popupBox.html", function () {
+            document.getElementById("popup-message").innerHTML = message;
+            document.getElementById("popup-button").addEventListener("click", function () {
+                document.getElementById("popup-box").style.display = "none";
+            });
+        });
     });
 }
 
@@ -18,7 +24,8 @@ async function postLegalUpdateRequestOnSubmit() {
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('update?customer-type=legal', fetchSettings);
         let message = await response.text();
-        alert(message);
+        // alert(message);
+        showPopUpMessage(message);
     })
 }
 
@@ -42,7 +49,13 @@ async function postRealRegistrationRequestOnSubmit() {
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('../real-register', fetchSettings);
         let message = await response.text();
-        alert(message);
+        $("#popup").load("reusableHTMLCodes/popupBox.html", function () {
+            document.getElementById("popup-message").innerHTML = message;
+            document.getElementById("popup-button").addEventListener("click", function () {
+                document.getElementById("popup-box").style.display = "none";
+            });
+        });
+        // alert(message);
     });
 }
 
@@ -54,7 +67,8 @@ async function postRealUpdateRequestOnSubmit() {
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('update?customer-type=real', fetchSettings);
         let message = await response.text();
-        alert(message);
+        // alert(message);
+        showPopUpMessage(message);
     })
 }
 
@@ -102,15 +116,19 @@ function setSearchSubmitEvent(formElement, searchDomain) {
     })
 }
 
-async function postLoanType() {
-    const fetchSettings = {method: 'POST'};
-    let response = await fetch('../post-loan-type', fetchSettings);
-    let message = await response.text();
+async function postLoanType(conditionIsDefined) {
+    let message = "خطا! \n تعیین حداقل یک شرط اعطا برای هر تسهیلات ضروری است!";
+    let response = null;
+    if(conditionIsDefined == "true"){
+        const fetchSettings = {method: 'POST'};
+        response = await fetch('../post-loan-type', fetchSettings);
+        message = await response.text();
+    }
     $("#popup").load("reusableHTMLCodes/popupBox.html", function () {
         document.getElementById("popup-message").innerHTML = message;
         document.getElementById("popup-button").addEventListener("click", function () {
             document.getElementById("popup-box").style.display = "none";
-            if (response.status == 200) {
+            if (response != null && response.status == 200) {
                 window.location.assign("loanDefinition.jsp")
             }
         });
@@ -120,7 +138,13 @@ async function postLoanType() {
 function postLoanRequestOnSubmit() {
     let formElement = document.getElementById("loan-contract-request-form");
     formElement.addEventListener("submit", async function (event) {
+
         event.preventDefault();
+
+        let customerId = document.getElementById("customer-id").value;
+        if (customerId == null || customerId == "")
+            return showPopUpMessage("لطفا ابتدا کد ملی مشتری را وارد کرده و گزینه ی بازیابی را انتخاب فرمایید!");
+
         const params = getFormParameters(formElement);
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('register-loan-profile', fetchSettings);
@@ -129,8 +153,17 @@ function postLoanRequestOnSubmit() {
             document.getElementById("popup-message").innerHTML = message;
             document.getElementById("popup-button").addEventListener("click", function () {
                 document.getElementById("popup-box").style.display = "none";
-                window.location.assign("get-loan-types")
+                window.location.assign("create-loan-profile");
             });
         });
     })
+}
+
+function showPopUpMessage(message){
+    $("#popup").load("presentation/reusableHTMLCodes/popupBox.html", function () {
+        document.getElementById("popup-message").innerHTML = message;
+        document.getElementById("popup-button").addEventListener("click", function () {
+            document.getElementById("popup-box").style.display = "none";
+        });
+    });
 }

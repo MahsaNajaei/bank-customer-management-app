@@ -14,13 +14,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title> تعریف شروط اعطا </title>
 </head>
-<body style="background: #dddbdb">
+<body>
 
 <div id="loan-box-wrapper">
+
     <div id="loan-conditions-header">
+        <a href="../index.jsp" class="return_home_button"
+           style="width: 3%; position:absolute; left: 3%; margin-top: 23%;">
+            <img alt="صفحه ی اصلی" src="images/home-icon-navy.png" title="بازگشت به صفحه ی اصلی">
+        </a>
         <img src="images/loan-definition-header.jpg">
         <h1> تعریف <br> شروط اعطاء </h1>
     </div>
+
     <div id="conditions-form-wrapper">
         <p>
             توجه: برای تعریف تسهیلات جدید باید حداقل یک شرط اعطا برای آن تعریف کنید!
@@ -63,9 +69,11 @@
             </tr>
 
             <%
+                boolean conditionIsDefined = false;
                 if (request.getSession().getAttribute("loan-type") != null) {
                     LoanTypeVo loanType = (LoanTypeVo) request.getSession().getAttribute("loan-type");
                     if (loanType.getGrantConditions().size() != 0) {
+                        conditionIsDefined = true;
                         List<GrantConditionVo> grantConditions = loanType.getGrantConditions();
                         for (GrantConditionVo grantCondition :
                                 grantConditions) {
@@ -103,8 +111,7 @@
                 }
             }
         %>
-
-        <button type="submit" id="loan-registration-submit" class="rectangle-blue-button" onclick="postLoanType()"> ثبت
+        <button type="submit" id="loan-registration-submit" class="rectangle-blue-button" onclick="postLoanType('<%= conditionIsDefined %>')"> ثبت
             تسهیلات
         </button>
         <div id="popup" style="position: relative;"></div>

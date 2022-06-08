@@ -9,10 +9,7 @@ import ir.dotin.bank.cms.business.dataobjects.values.customers.RealCustomerVo;
 import ir.dotin.bank.cms.business.dataobjects.values.loans.LoanTypeVo;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CustomerDataMapper {
 
@@ -32,7 +29,7 @@ public class CustomerDataMapper {
             bankCustomerEntity.setSurname(realCustomer.getSurname());
 
             if (realCustomer.getReceivedLoanTypeVos() != null && realCustomer.getReceivedLoanTypeVos().size() != 0) {
-                List<LoanTypeEntity> loanTypeEntities = new ArrayList<>();
+                Set<LoanTypeEntity> loanTypeEntities = new HashSet<>();
                 LoanDataMapper loanDataMapper = new LoanDataMapper();
                 for (LoanTypeVo loanTypeVo : realCustomer.getReceivedLoanTypeVos()) {
                     LoanTypeEntity loanTypeEntity = loanDataMapper.mapLoanTypeVoToLoanTypeEntity(loanTypeVo);

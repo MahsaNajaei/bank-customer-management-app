@@ -15,6 +15,7 @@ public class UniqueIdGenerator {
             long diff = lastGeneratedId - id;
             id = (id + diff + 1) % digitLimit;
         }
+
         return lastGeneratedId = id;
     }
 }

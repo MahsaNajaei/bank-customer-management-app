@@ -10,7 +10,7 @@ html {
 }
 
 body {
-    background: url("images/background.jpg") fixed center/cover no-repeat;
+    background: #dddbdb;
     text-align: center;
     color: #7193af;
     font-family: Fantasy;
@@ -76,9 +76,9 @@ a {
     color: azure;
 }
 
-#content_wrapper {
+#gray_form_wrapper {
     background-color: #f6f8f9;
-    width: 34%;
+    width: 36%;
     padding: 2% 2% 1%;
     margin-right: auto;
     margin-left: auto;
@@ -113,7 +113,7 @@ a {
     color: #101e28;
     font-size: 1.15rem;
     padding: 0 2%;
-    line-height: 1.15rem;
+    line-height: 1.20rem;
     margin: auto 7% 3%;
 }
 
@@ -262,7 +262,7 @@ a {
 }
 
 /* customer registration */
-#customer-registration-wrapper {
+#simple-blue-bg-wrapper {
     width: 70%;
     background: url("images/background.jpg");
     margin-right: auto;
@@ -272,10 +272,11 @@ a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-shadow: #1e2e3a 0 0 50px, rgb(38, 57, 77) 0 20px 30px -10px;
 }
 
 #registration-options-wrapper {
-    background: #b0dff7;
+    background: #f2f0f0;
     border: 4px solid #7d8386;
     border: 4px solid #466077;
     box-shadow: #22394b 10px 10px 30px;
@@ -342,32 +343,32 @@ a {
     width: 90%;
     overflow-x: auto;
 }
-
 #result_table_wrapper table {
+    box-shadow: #1e2e3a 2px 5px 12px , rgb(38, 57, 77) 0 20px 30px -10px;
     max-width: 100%;
     min-width: 60%;
+    width: 100%;
     text-align: center;
     border-collapse: collapse;
-    border: 2px solid #75BBDA;
-    color: #206a94;
+    border: 2px solid #80aec2;
+    color: #2a3d4b;
     font-family: "Cambria Math";
-    background-color: #eff3f6;
+    background-color: #dde9f3;
     table-layout: auto;
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 3%;
-
 }
 
 #result_table_wrapper h2 {
-    color: #eff3f6;
-    margin-bottom: 0.5%;
+    color: white;
+    text-shadow: #1e2e3a 2px 5px 12px;
+    margin-bottom: 2%;
     font-weight: normal;
 }
 
 td, th {
     padding: 8px;
-
 }
 
 th > img {
@@ -381,14 +382,16 @@ a > img {
 }
 
 th, td:nth-last-child(1), td:nth-last-child(2) {
-    border: 1px solid #b7dbf1;
+    border: 1px solid #8eb7d2;
 }
 
 tr:nth-child(even) {
-    /*background: #d1e3fa;*/
-    background: #e6edef;
-    background: #cee2ea;
-    background: #d2e1e7;
+    background: white;
+}
+
+th{
+    background: #2a3d4b;
+    color: white;
 }
 
 /* edit page css */
@@ -397,7 +400,8 @@ tr:nth-child(even) {
     height: 370px;
     margin-left: auto;
     margin-right: auto;
-    background-color: aliceblue;
+    /*background-color: aliceblue;*/
+    background: #dde9f3;
     box-shadow: rgb(38, 57, 77) 0 20px 30px -10px;
 }
 
@@ -657,12 +661,13 @@ tr:nth-child(even) {
     background-color: #192936;
     background-color: #294459;
     display: inline-block;
-    position: fixed;
-    width: 70vw;
+    position: absolute;
+    width: 66vw;
     min-width: 700px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    height: 100vh;
 }
 
 #loan-request-wrapper * {
@@ -688,8 +693,6 @@ tr:nth-child(even) {
     width: 60%;
     display: flex;
     align-items: center;
-    margin-bottom: 6%;
-
 }
 
 #loan-request-form-wrapper form {

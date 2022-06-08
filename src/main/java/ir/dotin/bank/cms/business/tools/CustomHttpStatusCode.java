@@ -10,5 +10,6 @@ public class CustomHttpStatusCode {
     public final static int NULL_LOAN_TYPE = 806;
     public static final int CUSTOMER_NOT_FOUND = 807;
     public static final int ILLEGAL_NUMBER_ORDER = 808;
+    public static final int NULL_VALUE = 809;
     public final static int INTERNAL_SERVER_ERROR = 815;
 }

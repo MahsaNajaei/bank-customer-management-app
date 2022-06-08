@@ -11,9 +11,9 @@
         <property name="parentName" column="PARENT_NAME"/>
         <property name="date" column="DATE" not-null="true"/>
         <property name="exclusiveId" column="EXCLUSIVE_ID" not-null="true"/>
-        <bag name="receivedLoans" table="LOAN_PROFILES">
+        <set name="receivedLoans" table="LOAN_PROFILES">
             <key column="CUSTOMER_ID" not-null="true"/>
             <many-to-many class="ir.dotin.bank.cms.business.dataobjects.entities.LoanTypeEntity" column="LOAN_ID" />
-        </bag>
+        </set>
     </class>
 </hibernate-mapping>

@@ -11,20 +11,24 @@
     <title> ثبت نام مشتری حقیقی </title>
 </head>
 <body>
-<div id="app-title"> سامانه مدیریت امور بانکی </div>
-<div id="content_wrapper">
+<div id="simple-blue-bg-wrapper">
+    <div id="app-title"> سامانه مدیریت امور بانکی</div>
+    <div id="popup"></div>
+    <div id="gray_form_wrapper">
 
-    <a href="../index.jsp" class="return_home_button" style="">
-        <img alt="صفحه ی اصلی" src="images/home-icon1.png" title="بازگشت به صفحه ی اصلی"> </a>
+        <a href="../index.jsp" class="return_home_button" style="">
+            <img alt="صفحه ی اصلی" src="images/home-icon-navy.png" title="بازگشت به صفحه ی اصلی"> </a>
 
-    <div id="form_title_wrapper"> تعریف مشتری جدید </div>
+        <div id="form_title_wrapper"> تعریف مشتری جدید</div>
 
-    <div id="registration_form_wrapper" class="form_content">
-        <script>
-            $("#registration_form_wrapper").load("reusableHTMLCodes/real-person-form.html", function () {
-                postRealRegistrationRequestOnSubmit();
-            })
-        </script>
+        <div id="registration_form_wrapper" class="form_content">
+            <script>
+                $("#registration_form_wrapper").load("reusableHTMLCodes/real-person-form.html", function () {
+                    postRealRegistrationRequestOnSubmit();
+                })
+            </script>
+        </div>
+
     </div>
 
 </div>

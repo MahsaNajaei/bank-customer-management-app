@@ -53,7 +53,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoanProfileRegistrarServlet</servlet-name>
-        <url-pattern>/get-loan-types</url-pattern>
+        <url-pattern>/create-loan-profile</url-pattern>
         <url-pattern>/get-customer-info</url-pattern>
         <url-pattern>/register-loan-profile </url-pattern>
     </servlet-mapping>

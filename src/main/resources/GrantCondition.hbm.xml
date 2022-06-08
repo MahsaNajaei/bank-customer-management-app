@@ -4,17 +4,14 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="ir.dotin.bank.cms.business.dataobjects.entities.GrantConditionEntity" table="GRANT_CONDITIONS">
-
         <id name="grantId" type="int" column="GRANT_ID">
             <generator class="increment"/>
         </id>
-
         <property name="name" column="NAME" not-null="true"/>
         <property name="maxContractDuration" column="MAX_CONTRACT_DURATION" not-null="true"/>
         <property name="minContractDuration" column="MIN_CONTRACT_DURATION" not-null="true"/>
         <property name="maxContractAmount" column="MAX_CONTRACT_AMOUNT" not-null="true"/>
         <property name="minContractAmount" column="MIN_CONTRACT_AMOUNT" not-null="true"/>
-
         <many-to-one name="loanType" class="ir.dotin.bank.cms.business.dataobjects.entities.LoanTypeEntity"
                      column="LOAN_ID" not-null="true" insert="false" update="false"/>
     </class>

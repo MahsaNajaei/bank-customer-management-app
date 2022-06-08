@@ -14,15 +14,15 @@
     <script type="text/javascript" src="presentation/validation.js"></script>
 </head>
 
-<body>
+<body style=" background: url('presentation/images/background.jpg') fixed center / cover no-repeat;">
 
 <%
     RealCustomerVo realCustomer = (RealCustomerVo) request.getAttribute("customer");
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(realCustomer.getBirthDate());
 %>
-
-<div id="app-title"> سامانه مدیریت امور بانکی </div>
+<div id="app-title"> سامانه مدیریت امور بانکی</div>
+<div id="popup"></div>
 <div id="edit_form_wrapper" style="height:450px;">
     <span id="edit_image" style="height:450px;"> </span>
     <span id="edit_form" style="transform: translateY(7%);">

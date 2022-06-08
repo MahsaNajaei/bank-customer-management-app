@@ -4,6 +4,8 @@ import ir.dotin.bank.cms.business.dataobjects.entities.BankCustomerEntity;
 import ir.dotin.bank.cms.business.dataobjects.entities.LoanTypeEntity;
 import ir.dotin.bank.cms.dal.daos.interfaces.BankCustomerDao;
 import ir.dotin.bank.cms.dal.exceptions.CustomerNotFoundException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DefaultBankCustomerDao implements BankCustomerDao {
+    private static final Logger logger = LogManager.getLogger(DefaultBankCustomerDao.class);
 
     @Override
     public void addCustomer(BankCustomerEntity customer) {
@@ -94,12 +97,17 @@ public class DefaultBankCustomerDao implements BankCustomerDao {
     public void updateCustomerLoans(String customerId, LoanTypeEntity loanType) {
         Session session = SingleSessionFactory.getInstance().openSession();
         session.beginTransaction();
-        BankCustomerEntity bankCustomerEntity = session.get(BankCustomerEntity.class, customerId);
-        bankCustomerEntity.getReceivedLoans().add(loanType);
-        session.saveOrUpdate(bankCustomerEntity);
-        session.getTransaction().commit();
-        session.close();
-
+        Query query = session.createQuery("from BankCustomerEntity customer where customer.customerId = :customerId and :loan not member of customer.receivedLoans");
+        query.setParameter("customerId", customerId);
+        query.setParameter("loan", loanType);
+        try {
+            BankCustomerEntity bankCustomerEntity = (BankCustomerEntity) query.getSingleResult();
+            bankCustomerEntity.getReceivedLoans().add(loanType);
+            session.getTransaction().commit();
+            session.close();
+        } catch (NoResultException e) {
+            logger.error("No result found for customer with id[" + customerId + "] that has not registered loanType[" + loanType.getName() + "] yet! \n" + e);
+        }
     }
 
     @Override
@@ -111,7 +119,6 @@ public class DefaultBankCustomerDao implements BankCustomerDao {
             queryString += "where " + conditions;
         }
         List<BankCustomerEntity> customers = session.createQuery(queryString).list();
-        System.out.println(customers.size());
         session.close();
         return customers;
     }

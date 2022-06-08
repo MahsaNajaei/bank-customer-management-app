@@ -32,7 +32,7 @@
         </div>
         <div class="home_option">
             <img src="presentation/images/loan-seaking-icon.png">
-            <a href="get-loan-types"><h3> تشکیل پرونده <br>تسهیلاتی </h3></a>
+            <a href="create-loan-profile"><h3> تشکیل پرونده <br>تسهیلاتی </h3></a>
         </div>
 
     </div>

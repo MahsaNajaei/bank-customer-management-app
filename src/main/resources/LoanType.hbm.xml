@@ -9,18 +9,14 @@
         </id>
         <property name="name" column="NAME" not-null="true"/>
         <property name="interestRate" column="INTEREST_RATE" not-null="true"/>
-
         <bag name="grantConditions" cascade="save-update">
             <key column="LOAN_ID" not-null="true"/>
             <one-to-many class="ir.dotin.bank.cms.business.dataobjects.entities.GrantConditionEntity"/>
         </bag>
-<!--        inverse="true"-->
-        <bag name="loanApplicants" table="LOAN_PROFILES"  >
+        <bag name="loanApplicants" table="LOAN_PROFILES">
             <key column="LOAN_ID" not-null="true"/>
             <many-to-many class="ir.dotin.bank.cms.business.dataobjects.entities.BankCustomerEntity"
                           column="CUSTOMER_ID"/>
         </bag>
-
     </class>
-
 </hibernate-mapping>

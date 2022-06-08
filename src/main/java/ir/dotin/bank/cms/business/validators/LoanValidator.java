@@ -1,14 +1,12 @@
-package ir.dotin.bank.cms.business.validatiors;
+package ir.dotin.bank.cms.business.validators;
 
 import ir.dotin.bank.cms.business.dataobjects.values.loans.GrantConditionVo;
 import ir.dotin.bank.cms.business.dataobjects.values.loans.LoanTypeVo;
-import ir.dotin.bank.cms.business.exceptions.GrantConditionNotExistsException;
-import ir.dotin.bank.cms.business.exceptions.IllegalNumberOrderException;
-import ir.dotin.bank.cms.business.exceptions.IllegalValueTypeException;
-import ir.dotin.bank.cms.business.exceptions.NullLoanTypeException;
+import ir.dotin.bank.cms.business.exceptions.*;
 
 public class LoanValidator extends GeneralValidator {
-    public void validateLoanType(LoanTypeVo loanTypeVo) throws GrantConditionNotExistsException, NullLoanTypeException, IllegalValueTypeException, IllegalNumberOrderException {
+
+    public void validateLoanType(LoanTypeVo loanTypeVo) throws GrantConditionNotExistsException, NullLoanTypeException, IllegalValueTypeException, IllegalNumberOrderException, NullValueException {
         if (loanTypeVo == null)
             throw new NullLoanTypeException();
         if (loanTypeVo.getGrantConditions() == null || loanTypeVo.getGrantConditions().size() == 0)
