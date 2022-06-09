@@ -63,5 +63,4 @@ public class DBConfiguration {
                 "PRIMARY KEY (GRANT_ID))");
     }
 
-
 }

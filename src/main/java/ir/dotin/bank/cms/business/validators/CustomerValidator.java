@@ -112,4 +112,5 @@ public class CustomerValidator extends GeneralValidator {
             throw new InvalidNationalCodeException();
         }
     }
+
 }

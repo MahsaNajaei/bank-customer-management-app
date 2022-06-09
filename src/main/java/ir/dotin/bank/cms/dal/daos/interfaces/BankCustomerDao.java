@@ -2,7 +2,7 @@ package ir.dotin.bank.cms.dal.daos.interfaces;
 
 import ir.dotin.bank.cms.business.dataobjects.entities.BankCustomerEntity;
 import ir.dotin.bank.cms.business.dataobjects.entities.LoanTypeEntity;
-import ir.dotin.bank.cms.business.exceptions.NoResultFoundException;
+import ir.dotin.bank.cms.dal.exceptions.NoResultFoundException;
 import ir.dotin.bank.cms.dal.exceptions.CustomerNotFoundException;
 
 import java.util.List;
@@ -27,4 +27,5 @@ public interface BankCustomerDao {
     BankCustomerEntity retrieveCustomerByExclusiveId(String exclusiveId) throws CustomerNotFoundException;
 
     void updateCustomerLoans(String customerId, LoanTypeEntity loanType) throws NoResultFoundException;
+
 }

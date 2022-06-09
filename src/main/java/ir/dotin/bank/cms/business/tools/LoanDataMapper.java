@@ -45,4 +45,5 @@ public class LoanDataMapper {
         grantConditionEntity.setMaxContractAmount(new BigDecimal(grantConditionVo.getMaxContractAmount()));
         return grantConditionEntity;
     }
+
 }

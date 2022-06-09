@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.math.BigDecimal;
 
 public class GeneralValidator {
+
     private static final Logger logger = LogManager.getLogger(GeneralValidator.class);
 
     public static void checkNumericValueIntegrity(String numberString) throws IllegalValueTypeException, NullValueException {
@@ -31,4 +32,5 @@ public class GeneralValidator {
             throw new IllegalNumberOrderException();
         }
     }
+
 }

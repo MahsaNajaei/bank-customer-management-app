@@ -1,4 +1,4 @@
-package ir.dotin.bank.cms.business.exceptions;
+package ir.dotin.bank.cms.dal.exceptions;
 
 public class NoResultFoundException extends Exception{
 }

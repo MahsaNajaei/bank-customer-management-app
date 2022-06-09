@@ -14,4 +14,5 @@ public interface LoanDao {
     LoanTypeEntity retrieveLoanTypeById(int loanTypeId) throws NoLoanTypeFoundException;
 
     LoanTypeEntity retrieveLoanTypeIfContractConditionIsAcceptable(int loanId, BigDecimal contractAmount, int contractDuration) throws NoLoanTypeFoundException;
+
 }

@@ -18,4 +18,5 @@ public class UniqueIdGenerator {
 
         return lastGeneratedId = id;
     }
+
 }

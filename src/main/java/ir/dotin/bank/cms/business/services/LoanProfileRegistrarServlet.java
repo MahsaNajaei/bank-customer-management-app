@@ -5,13 +5,13 @@ import ir.dotin.bank.cms.business.dataobjects.entities.LoanTypeEntity;
 import ir.dotin.bank.cms.business.dataobjects.values.customers.BankCustomerVo;
 import ir.dotin.bank.cms.business.exceptions.IllegalValueTypeException;
 import ir.dotin.bank.cms.business.exceptions.InvalidNationalCodeException;
-import ir.dotin.bank.cms.business.exceptions.NoResultFoundException;
+import ir.dotin.bank.cms.dal.exceptions.NoResultFoundException;
 import ir.dotin.bank.cms.business.exceptions.NullValueException;
 import ir.dotin.bank.cms.business.tools.CustomHttpStatusCode;
 import ir.dotin.bank.cms.business.tools.CustomerDataMapper;
 import ir.dotin.bank.cms.business.tools.DataExtractor;
 import ir.dotin.bank.cms.business.validators.CustomerValidator;
-import ir.dotin.bank.cms.business.validators.GeneralValidator;
+import ir.dotin.bank.cms.business.validators.LoanValidator;
 import ir.dotin.bank.cms.dal.daos.implementations.hibernate.DefaultBankCustomerDao;
 import ir.dotin.bank.cms.dal.daos.implementations.hibernate.DefaultLoanDao;
 import ir.dotin.bank.cms.dal.exceptions.CustomerNotFoundException;
@@ -83,10 +83,7 @@ public class LoanProfileRegistrarServlet extends HttpServlet {
         String customerId = request.getParameter("customer-id");
 
         try {
-            GeneralValidator.checkNumericValueIntegrity(loanTypeId);
-            GeneralValidator.checkNumericValueIntegrity(contractDuration);
-            GeneralValidator.checkNumericValueIntegrity(contractAmount);
-            GeneralValidator.checkNumericValueIntegrity(customerId);
+            new LoanValidator().validateLoanRequestProfileInfo(customerId, loanTypeId, contractAmount, contractDuration);
             LoanTypeEntity loanTypeEntity = new DefaultLoanDao().retrieveLoanTypeIfContractConditionIsAcceptable(Integer.parseInt(loanTypeId), new BigDecimal(contractAmount), Integer.parseInt(contractDuration));
             new DefaultBankCustomerDao().updateCustomerLoans(customerId, loanTypeEntity);
             response.getWriter().println("درخواست تسهیلات با موفقیت ثبت شد!");
@@ -107,7 +104,7 @@ public class LoanProfileRegistrarServlet extends HttpServlet {
             response.setStatus(CustomHttpStatusCode.NULL_VALUE);
             e.printStackTrace();
         } catch (NoResultFoundException e) {
-            response.getWriter().println("در حا حاضر مشتری انتخابی در حال بهرمندی از این نوع تسهیلات است و امکان درخواست دوباره وجود ندارد!");
+            response.getWriter().println("در حال حاضر مشتری انتخابی در حال بهرمندی از این نوع تسهیلات است و امکان درخواست دوباره آن وجود ندارد!");
             response.setStatus(CustomHttpStatusCode.DUPLICATED_LOAN_REQUEST);
             logger.error("Client has already received the loan!");
             e.printStackTrace();

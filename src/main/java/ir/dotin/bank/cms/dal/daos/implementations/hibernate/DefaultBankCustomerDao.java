@@ -2,7 +2,7 @@ package ir.dotin.bank.cms.dal.daos.implementations.hibernate;
 
 import ir.dotin.bank.cms.business.dataobjects.entities.BankCustomerEntity;
 import ir.dotin.bank.cms.business.dataobjects.entities.LoanTypeEntity;
-import ir.dotin.bank.cms.business.exceptions.NoResultFoundException;
+import ir.dotin.bank.cms.dal.exceptions.NoResultFoundException;
 import ir.dotin.bank.cms.dal.daos.interfaces.BankCustomerDao;
 import ir.dotin.bank.cms.dal.exceptions.CustomerNotFoundException;
 import org.apache.logging.log4j.LogManager;

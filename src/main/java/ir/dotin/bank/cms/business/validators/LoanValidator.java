@@ -25,4 +25,11 @@ public class LoanValidator extends GeneralValidator {
             checkMaxMinValidation(min, max);
         }
     }
+
+    public void validateLoanRequestProfileInfo(String customerId, String loanTypeId, String contractAmount, String contractDuration) throws IllegalValueTypeException, NullValueException {
+        GeneralValidator.checkNumericValueIntegrity(loanTypeId);
+        GeneralValidator.checkNumericValueIntegrity(contractDuration);
+        GeneralValidator.checkNumericValueIntegrity(contractAmount);
+        GeneralValidator.checkNumericValueIntegrity(customerId);
+    }
 }

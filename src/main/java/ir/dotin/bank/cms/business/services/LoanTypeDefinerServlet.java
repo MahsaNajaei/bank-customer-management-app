@@ -22,11 +22,12 @@ import java.io.IOException;
 @WebServlet(name = "loanTypeDefinerServlet")
 public class LoanTypeDefinerServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(LoanTypeDefinerServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("loanTypeDefinerServlet is called with get method!");
-        String redirectAddress = "presentation/loanConditionsDefinition.jsp";
+
         DataExtractor dataExtractor = new DataExtractor();
+        String redirectAddress = "presentation/loanConditionsDefinition.jsp";
         if (request.getParameter("loan-name") != null) {
             LoanTypeVo loanType = dataExtractor.extractLoanTypeVoFromRequestParams(request);
             request.getSession().setAttribute("loan-type", loanType);
@@ -43,14 +44,13 @@ public class LoanTypeDefinerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("loanTypeDefinerServlet is called with post method!");
+
         LoanTypeVo loanTypeVo = (LoanTypeVo) request.getSession().getAttribute("loan-type");
         try {
             new LoanValidator().validateLoanType(loanTypeVo);
             LoanTypeEntity loanTypeEntity = new LoanDataMapper().mapLoanTypeVoToLoanTypeEntity(loanTypeVo);
             new DefaultLoanDao().add(loanTypeEntity);
             request.getSession().removeAttribute("loan-type");
-
             response.getWriter().println("نوع تسهیلات جدید با موفقیت ثبت شد!");
             logger.info("LoanType " + loanTypeEntity.getName() + "is registered successfully!");
         } catch (NullLoanTypeException e) {

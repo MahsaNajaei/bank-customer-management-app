@@ -24,6 +24,7 @@ import java.io.IOException;
 
 @WebServlet(name = "registrationServlet")
 public class RegistrationServlet extends HttpServlet {
+
     private static final Logger logger = LogManager.getLogger(RegistrationServlet.class);
     private UniqueIdGenerator uniqueIdGenerator;
     private CustomerValidator customerValidator;
