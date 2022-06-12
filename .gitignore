@@ -6,3 +6,4 @@ target/
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 testForm.html
+webAppLogs/

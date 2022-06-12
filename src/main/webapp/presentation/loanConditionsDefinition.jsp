@@ -111,10 +111,21 @@
                 }
             }
         %>
-        <button type="submit" id="loan-registration-submit" class="rectangle-blue-button" onclick="postLoanType('<%= conditionIsDefined %>')"> ثبت
+        <button type="submit" id="loan-registration-submit" class="rectangle-blue-button"
+                onclick="postLoanType('<%= conditionIsDefined %>')"> ثبت
             تسهیلات
         </button>
         <div id="popup" style="position: relative;"></div>
+        <script>
+            <%
+            String serverMessage = (String) request.getSession().getAttribute("server-message");
+                if (serverMessage != null){
+                %>
+            showPopUpMessage("<%= serverMessage %>", "");
+            <%
+                }
+            %>
+        </script>
     </div>
     <div id="curved-footer">
         <img src="images/curved-footer.png">

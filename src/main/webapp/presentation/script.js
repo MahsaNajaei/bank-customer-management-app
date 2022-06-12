@@ -6,13 +6,7 @@
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('../legal-register', fetchSettings);
         let message = await response.text();
-        // alert(message);
-        $("#popup").load("reusableHTMLCodes/popupBox.html", function () {
-            document.getElementById("popup-message").innerHTML = message;
-            document.getElementById("popup-button").addEventListener("click", function () {
-                document.getElementById("popup-box").style.display = "none";
-            });
-        });
+        showPopUpMessage(message, "");
     });
 }
 
@@ -24,8 +18,7 @@ async function postLegalUpdateRequestOnSubmit() {
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('update?customer-type=legal', fetchSettings);
         let message = await response.text();
-        // alert(message);
-        showPopUpMessage(message);
+        showPopUpMessage(message, "presentation/");
     })
 }
 
@@ -49,13 +42,7 @@ async function postRealRegistrationRequestOnSubmit() {
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('../real-register', fetchSettings);
         let message = await response.text();
-        $("#popup").load("reusableHTMLCodes/popupBox.html", function () {
-            document.getElementById("popup-message").innerHTML = message;
-            document.getElementById("popup-button").addEventListener("click", function () {
-                document.getElementById("popup-box").style.display = "none";
-            });
-        });
-        // alert(message);
+        showPopUpMessage(message, "");
     });
 }
 
@@ -67,8 +54,7 @@ async function postRealUpdateRequestOnSubmit() {
         const fetchSettings = {method: 'POST', body: params};
         let response = await fetch('update?customer-type=real', fetchSettings);
         let message = await response.text();
-        // alert(message);
-        showPopUpMessage(message);
+        showPopUpMessage(message, "presentation/");
     })
 }
 
@@ -143,7 +129,7 @@ function postLoanRequestOnSubmit() {
 
         let customerId = document.getElementById("customer-id").value;
         if (customerId == null || customerId == "")
-            return showPopUpMessage("لطفا ابتدا کد ملی مشتری را وارد کرده و گزینه ی بازیابی را انتخاب فرمایید!");
+            return showPopUpMessage("لطفا ابتدا کد ملی مشتری را وارد کرده و گزینه ی بازیابی را انتخاب فرمایید!", "presentation/");
 
         const params = getFormParameters(formElement);
         const fetchSettings = {method: 'POST', body: params};
@@ -159,8 +145,8 @@ function postLoanRequestOnSubmit() {
     })
 }
 
-function showPopUpMessage(message){
-    $("#popup").load("presentation/reusableHTMLCodes/popupBox.html", function () {
+function showPopUpMessage(message, startingUrlPath){
+    $("#popup").load( startingUrlPath + "reusableHTMLCodes/popupBox.html", function () {
         document.getElementById("popup-message").innerHTML = message;
         document.getElementById("popup-button").addEventListener("click", function () {
             document.getElementById("popup-box").style.display = "none";

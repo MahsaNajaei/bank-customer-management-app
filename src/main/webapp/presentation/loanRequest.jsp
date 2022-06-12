@@ -71,7 +71,7 @@
         %>
             <script>
                 let message = '<%= serverMessage%>';
-                showPopUpMessage(message);
+                showPopUpMessage(message, "presentation/");
             </script>
         <%
             }

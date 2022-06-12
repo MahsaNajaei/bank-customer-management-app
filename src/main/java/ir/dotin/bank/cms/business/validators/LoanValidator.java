@@ -4,6 +4,8 @@ import ir.dotin.bank.cms.business.dataobjects.values.loans.GrantConditionVo;
 import ir.dotin.bank.cms.business.dataobjects.values.loans.LoanTypeVo;
 import ir.dotin.bank.cms.business.exceptions.*;
 
+import java.util.List;
+
 public class LoanValidator extends GeneralValidator {
 
     public void validateLoanType(LoanTypeVo loanTypeVo) throws GrantConditionNotExistsException, NullLoanTypeException, IllegalValueTypeException, IllegalNumberOrderException, NullValueException {
@@ -31,5 +33,18 @@ public class LoanValidator extends GeneralValidator {
         GeneralValidator.checkNumericValueIntegrity(contractDuration);
         GeneralValidator.checkNumericValueIntegrity(contractAmount);
         GeneralValidator.checkNumericValueIntegrity(customerId);
+    }
+
+    public void validateGrantConditionUniqueness(List<GrantConditionVo> existingConditions, GrantConditionVo newCondition) throws DuplicatedGrantConditionException {
+        for (GrantConditionVo existingCondition : existingConditions) {
+            if (existingCondition.getMaxContractAmount().equalsIgnoreCase(newCondition.getMaxContractAmount())
+                    && existingCondition.getMinContractAmount().equalsIgnoreCase(newCondition.getMinContractAmount())
+                    && existingCondition.getMaxContractDuration().equalsIgnoreCase(newCondition.getMaxContractDuration())
+                    && existingCondition.getMinContractDuration().equalsIgnoreCase(newCondition.getMinContractDuration())) {
+
+                throw new DuplicatedGrantConditionException();
+            }
+
+        }
     }
 }

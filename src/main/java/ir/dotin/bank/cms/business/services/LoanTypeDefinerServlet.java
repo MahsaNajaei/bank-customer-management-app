@@ -35,9 +35,17 @@ public class LoanTypeDefinerServlet extends HttpServlet {
         } else if (request.getParameter("condition-name") != null) {
             GrantConditionVo grantCondition = dataExtractor.extractGrantConditionVoFromRequestParams(request);
             LoanTypeVo loanTypeVo = (LoanTypeVo) request.getSession().getAttribute("loan-type");
-            loanTypeVo.getGrantConditions().add(grantCondition);
             redirectAddress += "#" + request.getParameter("display-Section-id");
-            logger.info("client is defining new loan conditions! conditionName['" + loanTypeVo.getName() + "']");
+            try{
+                new LoanValidator().validateGrantConditionUniqueness(loanTypeVo.getGrantConditions(), grantCondition);
+                loanTypeVo.getGrantConditions().add(grantCondition);
+                logger.info("client is defining new loan conditions! conditionName['" + loanTypeVo.getName() + "']");
+            } catch (DuplicatedGrantConditionException e) {
+                request.getSession().setAttribute("server-message", "شرط اعطای وارد شده تکراری است!");
+                logger.error("loan conditions is not added as it was duplicated!");
+                e.printStackTrace();
+            }
+
         }
         response.sendRedirect(redirectAddress);
     }

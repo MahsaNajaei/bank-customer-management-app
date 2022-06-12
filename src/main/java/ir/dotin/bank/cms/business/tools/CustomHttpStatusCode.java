@@ -12,5 +12,6 @@ public class CustomHttpStatusCode {
     public static final int ILLEGAL_NUMBER_ORDER = 808;
     public static final int NULL_VALUE = 809;
     public static final int DUPLICATED_LOAN_REQUEST = 810;
+    public static final int DUPLICATED_GRANT_CONDITION = 811;
     public final static int INTERNAL_SERVER_ERROR = 815;
 }
