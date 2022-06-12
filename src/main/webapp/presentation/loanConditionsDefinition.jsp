@@ -123,6 +123,7 @@
                 %>
             showPopUpMessage("<%= serverMessage %>", "");
             <%
+            request.getSession().removeAttribute("server-message");
                 }
             %>
         </script>
